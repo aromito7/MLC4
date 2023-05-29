@@ -1,4 +1,6 @@
 //const Player = require("./player");
+import Player from './player.js'
+import './style.css'
 
 const ROWS = 6;
 const COLS = 7;
@@ -150,5 +152,27 @@ function initDropButtons(){
     console.log(`Building button ${x}`)
   }
 }
+
+const GameBoard = () => {
+  return (
+    <div id="container">
+      <h1>Connect 4</h1>
+      <div id="app">
+        <p id="endGame"></p>
+        <div id="dropButtons"/>
+        <div id="grid"/>
+        <div class="toolbar">
+          <button id="start" class="off">NEW GAME</button>
+
+          {/* <button id="clear">PLAY AI</button>
+          <button id="next">PLAY ML</button> */}
+
+        </div>
+      </div>
+    </div>
+  )
+}
+
+export default GameBoard
 
 window.onload = initialize;
