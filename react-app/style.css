@@ -1,0 +1,176 @@
+/* Commodore 64 colors! */
+/* #000 black */
+/* #00A blue */
+/* #08F light blue */
+/* #AFE cyan */
+/* #0C5 green */
+/* #AF6 light green */
+/* #333 dark gray */
+/* #777 light grey */
+/* #BBB light light grey */
+/* #FFF white */
+/* #640 brown */
+/* #800 red */
+/* #F77 light red */
+/* #C4C violet */
+/* #D85 orange */
+/* #EE7 yellow */
+
+html, body {
+    display: absolute;
+    background-image: linear-gradient(to bottom right, red, black);
+    color: #BBB;
+    margin: 0;
+    font-family: serif;
+    font-size: 28px;
+    height: 100%;
+    width: 100%;
+    caret-color: transparent;
+}
+
+#endGame{
+    font-size: 48px;
+    font-family: serif;
+    color: black;
+    position: absolute;
+    margin-top: auto;
+    margin-left: auto;
+    margin-right: auto;
+    left: 0;
+    right: 0;
+    text-align: center;
+}
+
+#container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+}
+
+#app {
+    /* border: 1px solid #BBB; */
+    /*background-color: #00A;*/
+
+}
+
+#grid {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    grid-template-rows: repeat(6, 1fr);
+    background-color: yellow;
+    grid-gap: 0px;
+}
+
+.active{
+    background-color: #BBB;
+    margin: 5px;
+    border-radius: 25px;
+    width:50px;
+    height:50px;
+}
+
+.empty{
+    background-color: white;
+    margin: 5px;
+    border-radius: 25px;
+    width:50px;
+    height:50px;
+}
+
+.red {
+    background-color: rgb(255, 0, 0);
+    margin: 5px;
+    border-radius: 25px;
+    width:50px;
+    height:50px;
+}
+
+.pink {
+    background-color: #F88;
+    margin: 5px;
+    border-radius: 25px;
+    width:50px;
+    height:50px;
+}
+
+.black {
+    background-color: rgb(0, 0, 0);
+    margin: 5px;
+    border-radius: 25px;
+    width:50px;
+    height:50px;
+}
+
+.grey {
+    background-color: #888;
+    margin: 5px;
+    border-radius: 25px;
+    width:50px;
+    height:50px;
+}
+
+h1 {
+    color: #FFF;
+    font-family: serif;
+    /* -webkit-text-stroke: 2px #00A; */
+}
+
+.toolbar {
+    display: flex;
+    margin-top: 10px;
+    justify-content: space-around;
+    width: 420px;
+}
+
+.toolbar > button{
+    border-radius: 5px;
+}
+
+#dropButtons{
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+}
+
+.dropButton{
+    background-color: white;
+    border-radius: 25px;
+    margin: 5px;
+    width:50px;
+    height:50px;
+}
+
+.dropButton:hover{
+    background-color: black;
+}
+
+#clear {
+    border: 1px solid #FFF;
+    font-family: serif;
+    font-size: 24px;
+    background-color: #800;
+    color: #FFF;
+}
+
+#next {
+    font-family: serif;
+    font-size: 24px;
+    background-color: #EE7;
+    color: #333;
+}
+
+
+.on {
+    font-family: serif;
+    font-size: 24px;
+    background-color: #800;
+    color: #FFF;
+}
+
+.off {
+    font-family: serif;
+    font-size: 24px;
+    background-color: #0C5;
+    color: #333;
+}

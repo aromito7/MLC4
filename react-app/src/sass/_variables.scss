@@ -1,0 +1,6 @@
+// Notice the file name: _variables.scss
+// The _ tells the compiler to ignore this file.
+// This file is imported in the index.scss file so we don't need to compile it.
+// This is called a partial scss file.
+$testVar1: blue;
+$textVar2: red;

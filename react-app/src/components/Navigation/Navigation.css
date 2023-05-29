@@ -1,0 +1,9 @@
+.profile-dropdown {
+  position: absolute;
+  right: 0px;
+  top: calc(100% + .1rem);
+}
+
+.hidden {
+  display: none;
+}

@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <!-- Retro fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=VT323&display=swap" rel="stylesheet">
+    <!-- end fonts -->
+    <title>JS: Game of Life</title>
+    <link rel="stylesheet" href="style.css">
+  </head>
+  <body>
+    <div id="container">
+      <h1>Connect 4</h1>
+      <div id="app">
+        <p id="endGame"></p>  <!-- need to change class to ID as soon as I figure out how to fix the display-->
+        <div id="dropButtons">
+        </div>
+        <div id="grid">
+        </div>
+        <div class="toolbar">
+          <button id="start" class="off">NEW GAME</button>
+          <!--
+          <button id="clear">PLAY AI</button>
+          <button id="next">PLAY ML</button>
+          -->
+        </div>
+        </div>
+      </div>
+    <script src="player.js"></script>
+    <script src="index.js"></script>
+  </body>
+</html>
