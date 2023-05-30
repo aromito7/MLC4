@@ -19,7 +19,6 @@ let previousHover
 function initialize() {
   buildGrid();
   initDropButtons();
-  initButtons();
   board = Array(ROWS).fill().map(col => Array(COLS).fill(0))
   active = Array(COLS).fill(5)
   opponent = new Player(1, 2)
@@ -57,14 +56,14 @@ function startGame() {
 }
 
 
-function initButtons() {
-  //const clear = document.getElementById("clear");
-  //const next = document.getElementById("next");
-  const start = document.getElementById("start");
-  start.addEventListener("click", () => startGame());
-  //clear.addEventListener("click", () => clearScreen());
-  //  next.addEventListener("click", () => nextState());
-}
+// function initButtons() {
+//   //const clear = document.getElementById("clear");
+//   //const next = document.getElementById("next");
+//   const start = document.getElementById("start");
+//   start.addEventListener("click", () => startGame());
+//   //clear.addEventListener("click", () => clearScreen());
+//   //  next.addEventListener("click", () => nextState());
+// }
 
 function checkForWin([x, y], board, player){
   const chain = Player.longestChainAtLocation([x, y], board, player)
@@ -162,7 +161,7 @@ const GameBoard = () => {
         <div id="dropButtons"/>
         <div id="grid"/>
         <div class="toolbar">
-          <button id="start" class="off">NEW GAME</button>
+          <button id="start" class="off" onClick={() => startGame()}>NEW GAME</button>
 
           {/* <button id="clear">PLAY AI</button>
           <button id="next">PLAY ML</button> */}
