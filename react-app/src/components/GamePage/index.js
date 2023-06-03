@@ -1,5 +1,6 @@
 //const Player = require("./player");
 import Player from './player.js'
+import Square from './square.js';
 import './style.css'
 
 const ROWS = 6;
@@ -17,7 +18,7 @@ let gameOver = false
 let previousHover
 
 function initialize() {
-  buildGrid();
+  // buildGrid();
   initDropButtons();
   board = Array(ROWS).fill().map(col => Array(COLS).fill(0))
   active = Array(COLS).fill(5)
@@ -121,22 +122,37 @@ const columnHover = function(player, column){
   }
 }
 
-function buildGrid() {
-  const grid = document.getElementById("grid");
-  for (let y = 0; y < ROWS; y++) {
-    const row = []
-    for (let x = 0; x < COLS; x++) {
-      const cell = document.createElement("div");
-      cell.setAttribute("class", "empty");
-      cell.setAttribute("id", `${x},${y}`);
-      //cell.addEventListener("click", pressButton(currentPlayer, x))
-      grid.appendChild(cell);
-      row.push(cell)
-    }
-    display.push(row)
-  }
-  //display = display.reverse()
-  //console.log(board)
+// function buildGrid() {
+//   const grid = document.getElementById("grid");
+//   for (let y = 0; y < ROWS; y++) {
+//     const row = []
+//     for (let x = 0; x < COLS; x++) {
+//       const cell = document.createElement("div");
+//       cell.setAttribute("class", "empty");
+//       cell.setAttribute("id", `${x},${y}`);
+//       //cell.addEventListener("click", pressButton(currentPlayer, x))
+//       grid.appendChild(cell);
+//       row.push(cell)
+//     }
+//     display.push(row)
+//   }
+//   //display = display.reverse()
+//   //console.log(board)
+// }
+
+const Grid = () => {
+
+  return (
+    <div id="grid">
+      {
+        board.map(row => row.map(square => {
+          return(
+            <Square/>
+          )
+        }))
+      }
+    </div>
+  )
 }
 
 function initDropButtons(){
@@ -159,7 +175,7 @@ const GameBoard = () => {
       <div id="app">
         <p id="endGame"></p>
         <div id="dropButtons"/>
-        <div id="grid"/>
+        <Grid/>
         <div class="toolbar">
           <button id="start" class="off" onClick={() => startGame()}>NEW GAME</button>
 

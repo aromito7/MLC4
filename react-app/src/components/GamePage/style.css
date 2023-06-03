@@ -174,3 +174,9 @@ h1 {
     background-color: #0C5;
     color: #333;
 }
+
+#grid{
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    grid-template-rows: repeat(6, 1fr);
+}
