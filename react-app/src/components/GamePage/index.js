@@ -1,43 +1,39 @@
 //const Player = require("./player");
 import Player from './player.js'
-import Square from './square.js';
 import './style.css'
 
 const ROWS = 6;
 const COLS = 7;
 
-let display = []
+let display = Array(ROWS).fill().map(col => Array(COLS).fill(0))
 let board
 let active
-
-let INTERVAL_POINTER = null;
 
 let opponent
 let currentPlayer = 1
 let gameOver = false
 let previousHover
 
-function initialize() {
-  // buildGrid();
-  initDropButtons();
-  board = Array(ROWS).fill().map(col => Array(COLS).fill(0))
-  active = Array(COLS).fill(5)
-  opponent = new Player(1, 2)
-
-}
+// function initialize() {
+//   // buildGrid();
+//   initDropButtons();
+//   board = Array(ROWS).fill().map(col => Array(COLS).fill(0))
+//   active = Array(COLS).fill(5)
+//   opponent = new Player(1, 2)
+// }
 
 function resetGame(){
   document.querySelectorAll(".dropButton").forEach(child => child.style.visibility = "visible")
   document.getElementById("endGame").innerText = ""
-  board = Array(ROWS).fill().map(col => Array(COLS).fill(0))
-  active = Array(COLS).fill(5)
-  const grid = document.getElementById("grid");
-  for (let y = 0; y < ROWS; y++) {
-    for (let x = 0; x < COLS; x++) {
-      const current = document.getElementById(`${x},${y}`);
-      current.setAttribute("class", "empty");
-    }
-  }
+  // board = Array(ROWS).fill().map(col => Array(COLS).fill(0))
+  // active = Array(COLS).fill(5)
+//   const grid = document.getElementById("grid");
+//   for (let y = 0; y < ROWS; y++) {
+//     for (let x = 0; x < COLS; x++) {
+//       const current = document.getElementById(`${x},${y}`);
+//       current.setAttribute("class", "empty");
+//     }
+//   }
 }
 
 function clearScreen() {
@@ -122,50 +118,54 @@ const columnHover = function(player, column){
   }
 }
 
-// function buildGrid() {
-//   const grid = document.getElementById("grid");
-//   for (let y = 0; y < ROWS; y++) {
-//     const row = []
-//     for (let x = 0; x < COLS; x++) {
-//       const cell = document.createElement("div");
-//       cell.setAttribute("class", "empty");
-//       cell.setAttribute("id", `${x},${y}`);
-//       //cell.addEventListener("click", pressButton(currentPlayer, x))
-//       grid.appendChild(cell);
-//       row.push(cell)
-//     }
-//     display.push(row)
+
+// function initDropButtons(){
+//   const buttonRow = document.getElementById("dropButtons");
+//   for(let x = 0; x < COLS; x++){
+//     const button = document.createElement("button")
+//     button.setAttribute("class", "dropButton")
+//     button.setAttribute("id", x)
+//     button.addEventListener("click", pressButton(1, x));
+//     button.addEventListener("mouseover", columnHover(1, x));
+//     buttonRow.appendChild(button)
+//     // console.log(`Building button ${x}`)
 //   }
-//   //display = display.reverse()
-//   //console.log(board)
 // }
 
 const Grid = () => {
-
+  console.log("Grid: ")
   return (
     <div id="grid">
       {
-        board.map(row => row.map(square => {
-          return(
-            <Square/>
-          )
-        }))
+        Array(ROWS * COLS).fill().map((r, val) =>{
+          return <Square val={val}/>
+        })
       }
     </div>
   )
 }
 
-function initDropButtons(){
-  const buttonRow = document.getElementById("dropButtons");
-  for(let x = 0; x < COLS; x++){
-    const button = document.createElement("button")
-    button.setAttribute("class", "dropButton")
-    button.setAttribute("id", x)
-    button.addEventListener("click", pressButton(1, x));
-    button.addEventListener("mouseover", columnHover(1, x));
-    buttonRow.appendChild(button)
-    console.log(`Building button ${x}`)
-  }
+const Row = ({y}) => {
+  console.log(`Row ${y}`)
+  return (
+    <>
+    {
+        Array(6).fill().map((square, x) => {
+          return (
+            <Square x={x} y={y}/>
+          )
+        })
+    }
+    </>
+  )
+}
+
+
+const Square = ({x, y}) => {
+  console.log(`Square ${x}, ${y}`)
+  return(
+      <div class="square empty"/>
+  )
 }
 
 const GameBoard = () => {
@@ -174,7 +174,20 @@ const GameBoard = () => {
       <h1>Connect 4</h1>
       <div id="app">
         <p id="endGame"></p>
-        <div id="dropButtons"/>
+        <div id="dropButtons">
+        {
+          Array(COLS).fill().map((x) => {
+            return(
+              <button
+              key={x}
+              class="dropButton"
+              onClick={e => pressButton(1, x)}
+              onmouseover={e => columnHover(1, x)}
+                />
+            )
+          })
+        }
+        </div>
         <Grid/>
         <div class="toolbar">
           <button id="start" class="off" onClick={() => startGame()}>NEW GAME</button>
@@ -190,4 +203,4 @@ const GameBoard = () => {
 
 export default GameBoard
 
-window.onload = initialize;
+// window.onload = initialize;
