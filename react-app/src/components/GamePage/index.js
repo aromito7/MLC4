@@ -1,13 +1,15 @@
 //const Player = require("./player");
 import Player from './player.js'
 import './style.css'
+import { useState, useEffect } from "react";
+
 
 const ROWS = 6;
 const COLS = 7;
 
-let display = Array(ROWS).fill().map(col => Array(COLS).fill(0))
+let display = Array(ROWS).fill().map(col => Array(COLS).fill(' '))
 let board
-let active
+let active = Array(COLS).fill(5)
 
 let opponent
 let currentPlayer = 1
@@ -97,78 +99,76 @@ const pressButton = function(player, column){
 }
 
 const columnDrop = function(player, column){
-  if(currentPlayer && currentPlayer !== player) return
+  console.log(`Column drop.  Player: ${player}, Column: ${column}`)
+  //if(currentPlayer && currentPlayer !== player) return
   const [y, x] = [active[column], column]
   //console.log(`Hello Player ${player}.  You've selected ${x}, ${y}`)
-  display[y][x].setAttribute("class", player === 1 ? "black" : "red")
-  board[y][x] = player
+  // display[y][x] = player === 1 ? "B" : "R"
   previousHover = null
   currentPlayer = 3 - currentPlayer
 
-  return [x, active[column]--]
+  active[column]--
 }
 
 const columnHover = function(player, column){
+  console.log(player, column)
   return () => {
     if(gameOver) return
     const [y , x] = [active[column], column]
-    display[y][x].setAttribute("class", player === 1 ? "grey" : "pink")
-    if(previousHover) previousHover.setAttribute("class", "empty")
-    previousHover = display[y][x]
+    display[y][x] = 'G'
   }
 }
 
 
-// function initDropButtons(){
-//   const buttonRow = document.getElementById("dropButtons");
-//   for(let x = 0; x < COLS; x++){
-//     const button = document.createElement("button")
-//     button.setAttribute("class", "dropButton")
-//     button.setAttribute("id", x)
-//     button.addEventListener("click", pressButton(1, x));
-//     button.addEventListener("mouseover", columnHover(1, x));
-//     buttonRow.appendChild(button)
-//     // console.log(`Building button ${x}`)
-//   }
-// }
-
 const Grid = () => {
-  console.log("Grid: ")
+  //console.log("Grid: ")
   return (
     <div id="grid">
       {
         Array(ROWS * COLS).fill().map((r, val) =>{
-          return <Square val={val}/>
+          const y = Math.floor(val / COLS)
+          const x = val % COLS
+          const color = display[y][x]
+          return <Square x={x} y={y} val={color} key={val}/>
         })
       }
     </div>
   )
 }
 
-const Row = ({y}) => {
-  console.log(`Row ${y}`)
-  return (
-    <>
-    {
-        Array(6).fill().map((square, x) => {
-          return (
-            <Square x={x} y={y}/>
-          )
-        })
-    }
-    </>
-  )
-}
+
+const Square = ({val, x, y}) => {
+  let color;
+  console.log(x, y, val)
+  switch(val){
+    case('G'):
+      color = "grey"
+      break
+    case('R'):
+      color = "red"
+      break
+    case('B'):
+      color = "black"
+      break
+    case('P'):
+      color = "pink"
+      break
+    default:
+      color = "empty"
+  }
 
 
-const Square = ({x, y}) => {
-  console.log(`Square ${x}, ${y}`)
-  return(
-      <div class="square empty"/>
-  )
+  if(val === 'G') return <div class={`square grey`}/>
+  if(val === 'R') return <div class={`square red`}/>
+  if(val === 'B') return <div class={`square black`}/>
+  if(val === 'P') return <div class={`square pink`}/>
+
+  return <div class={`square empty`}/>
 }
 
 const GameBoard = () => {
+  const [colors, setColors] = useState([])
+  let display = Array(ROWS).fill().map(col => Array(COLS).fill(' '))
   return (
     <div id="container">
       <h1>Connect 4</h1>
@@ -176,12 +176,12 @@ const GameBoard = () => {
         <p id="endGame"></p>
         <div id="dropButtons">
         {
-          Array(COLS).fill().map((x) => {
+          Array(COLS).fill().map((i, x) => {
             return(
               <button
               key={x}
               class="dropButton"
-              onClick={e => pressButton(1, x)}
+              onClick={e => columnDrop(1, x)}
               onmouseover={e => columnHover(1, x)}
                 />
             )
