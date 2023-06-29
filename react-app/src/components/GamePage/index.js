@@ -1,36 +1,25 @@
 //const Player = require("./player");
 import Player from './player.js'
+import Modal from './modal.js'
 import './style.css'
 import { useState, useEffect } from "react";
 
 
 const ROWS = 6;
 const COLS = 7;
-
-
 const display = Array(ROWS).fill().map(col => Array(COLS).fill(' '))
-let board
-let active = Array(COLS).fill(5)
-
-let opponent
-let currentPlayer = 1
-let gameOver = false
-let previousHover
-
-// function initialize() {
-//   // buildGrid();
-//   initDropButtons();
-//   board = Array(ROWS).fill().map(col => Array(COLS).fill(0))
-//   active = Array(COLS).fill(5)
-//   opponent = new Player(1, 2)
-// }
-
-
+const colors = {
+  'B': 'black',
+  'R': 'red',
+  'G': 'grey',
+  'P': 'pink',
+  ' ': 'empty'
+}
 
 
 const Grid = () => {
-  console.log("Rerendering Grid")
-  console.log(display)
+  //console.log("Rerendering Grid")
+  //console.log(display)
   return (
     <div id="grid">
       {
@@ -38,55 +27,43 @@ const Grid = () => {
           const y = Math.floor(val / COLS)
           const x = val % COLS
           const color = display[y][x]
-          return <Square x={x} y={y} val={color} key={val}/>
+          return <Square val={color} key={val} id={`${x},${y}`}/>
         })
       }
     </div>
   )
 }
+const DropButtons = () => {
 
+}
 
-const Square = ({val, x, y}) => {
-  let color;
+const Square = ({val}) => {
+  const color = colors[val];
   // console.log("Rerendering square:")
   // console.log(x, y, val)
-  switch(val){
-    case('G'):
-      color = "grey"
-      break
-    case('R'):
-      color = "red"
-      break
-    case('B'):
-      color = "black"
-      break
-    case('P'):
-      color = "pink"
-      break
-    default:
-      color = "empty"
-  }
 
-
-  if(val === 'G') return <div class={`square grey`}/>
-  if(val === 'R') return <div class={`square red`}/>
-  if(val === 'B') return <div class={`square black`}/>
-  if(val === 'P') return <div class={`square pink`}/>
-
-  return <div class={`square empty`}/>
+  return <div className={`square ${color}`}/>
 }
 
 const GameBoard = () => {
   const [currentPlayer, setCurrentPlayer] = useState(1)
+  const [active, setActive] = useState(Array(COLS).fill(5))
+  const [hover, setHover] = useState(-1)
+  const [isGameOver, setIsGameOver] = useState(false)
+  const [isModalOpen, setIsModalOpen] = useState(false)
+  const opponent = []
 
+  function toggleModal(){
+
+  }
 
   function resetGame(){
     console.log("Resetting Game...")
     for(let y in display){
       display[y] = Array(COLS).fill(' ')
     }
-    active = Array(COLS).fill(5)
     setCurrentPlayer(1)
+    setActive(Array(COLS).fill(5))
   }
 
 
@@ -94,7 +71,7 @@ const GameBoard = () => {
     console.log("Start Game...")
     const start = document.getElementById("start");
     start.innerHTML = "NEW GAME";
-    gameOver = false
+    setIsGameOver(false)
     resetGame()
   }
 
@@ -103,35 +80,16 @@ const GameBoard = () => {
 
   function checkForWin([x, y], board, player){
     const chain = Player.longestChainAtLocation([x, y], board, player)
-
     return chain >= 3? 1 : 0
   }
 
   function endGame(player){
-    gameOver = true
+    isGameOver = true
     const dropButtons = document.querySelectorAll(".dropButton")
     const endMessage = document.getElementById("endGame")
     endMessage.innerText = player === 2 ? "You Lose!" : "You Win"
     //endMessage.setAttribute("display", "visible")
     dropButtons.forEach(child => child.style.visibility = "hidden")
-  }
-
-  const pressButton = function(player, column){
-    //console.log(column, active[column], board)
-    //board[active[column]][column].setAttribute("class", player === 1 ? "black" : "red")
-    return () => {
-      if(gameOver) return
-      let recentMove = columnDrop(player, column)
-      if(checkForWin(recentMove, board, 1)){
-        endGame(1)
-        return
-      }
-      recentMove = columnDrop(currentPlayer, opponent.decide(board, active))
-      if(checkForWin(recentMove, board, 2)){
-        endGame(2)
-        return
-      }
-    }
   }
 
   const columnDrop = function(player, column){
@@ -140,18 +98,27 @@ const GameBoard = () => {
     const [y, x] = [active[column], column]
     console.log(`Hello Player ${player}.  You've selected ${x}, ${y}`)
     display[y][x] = player === 1 ? "B" : "R"
-    previousHover = null
+    setHover(-1)
     setCurrentPlayer(3 - currentPlayer)
 
     return[column, active[column]--]
   }
 
   const columnHover = function(player, column){
+    if(isGameOver) return
     console.log(player, column)
-    return () => {
-      if(gameOver) return
-      const [y , x] = [active[column], column]
-      display[y][x] = 'G'
+    changeHover(column)
+  }
+
+  const changeHover = function(column){
+    console.log(`Changing hover from column ${hover} to ${column}`)
+    if(hover >= 0){
+      console.log("Resetting old hover : ", active[hover], hover, column)
+      display[active[hover]][hover] = ' '
+    }
+    setHover(column)
+    if(column>=0){
+      display[active[column]][column] = currentPlayer === 1 ? 'G' : 'P'
     }
   }
 
@@ -166,23 +133,25 @@ const GameBoard = () => {
             return(
               <button
               key={x}
-              class={`dropButton ${currentPlayer === 1? 'hoverBlack' : 'hoverRed'}`}
-              onClick={e => columnDrop(1, x)}
-              onmouseover={e => columnHover(1, x)}
-                />
+              className={`dropButton ${currentPlayer === 1? 'hoverBlack' : 'hoverRed'}`}
+              onClick={e => columnDrop(currentPlayer, x)}
+              onMouseOver={e => columnHover(1, x)}
+              onMouseLeave={e => changeHover(-1)}
+              />
             )
           })
         }
         </div>
         <Grid/>
-        <div class="toolbar">
-          <button id="start" class="off" onClick={() => startGame()}>NEW GAME</button>
-
+        <div className="toolbar">
+          <button id="start" className="off" onClick={() => startGame()}>NEW GAME</button>
+          <button id='options' onClick={e => setIsModalOpen(true)}>Options</button>
           {/* <button id="clear">PLAY AI</button>
           <button id="next">PLAY ML</button> */}
 
         </div>
       </div>
+      <Modal isModalOpen={isModalOpen} setIsModalOpen={setIsModalOpen}/>
     </div>
   )
 }
