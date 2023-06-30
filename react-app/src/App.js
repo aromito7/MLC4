@@ -4,6 +4,7 @@ import { Redirect, Route, Switch} from "react-router-dom";
 import { authenticate } from "./store/session";
 import Navigation from "./components/Navigation";
 import GameBoard from "./components/GamePage";
+import './style.css'
 
 function App() {
   const dispatch = useDispatch();

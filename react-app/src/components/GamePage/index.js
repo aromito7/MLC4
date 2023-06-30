@@ -51,6 +51,7 @@ const GameBoard = () => {
   const [hover, setHover] = useState(-1)
   const [isGameOver, setIsGameOver] = useState(false)
   const [isModalOpen, setIsModalOpen] = useState(false)
+  const [gameType, setGameType] = useState("pvp")
   const opponent = []
 
   function toggleModal(){
