@@ -64,6 +64,7 @@ const GameBoard = () => {
       display[y] = Array(COLS).fill(' ')
     }
     setCurrentPlayer(1)
+    setIsModalOpen(false)
     setActive(Array(COLS).fill(5))
   }
 
@@ -91,6 +92,27 @@ const GameBoard = () => {
     endMessage.innerText = player === 2 ? "You Lose!" : "You Win"
     //endMessage.setAttribute("display", "visible")
     dropButtons.forEach(child => child.style.visibility = "hidden")
+  }
+
+  const botDecide = async(type) => {
+    const response = await fetch(`/api/bot/ai/decide`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        display
+      })
+    });
+  }
+
+  const pressButton = function(player, column){
+    if(currentPlayer === 1 || gameType === 'pvp'){
+      columnDrop(player, column)
+    }
+    else{
+      botDecide(gameType)
+    }
   }
 
   const columnDrop = function(player, column){
@@ -123,6 +145,11 @@ const GameBoard = () => {
     }
   }
 
+  const changeGameType = function(type){
+    setGameType(type)
+    resetGame()
+  }
+
   return (
     <div id="container">
       <h1>Connect 4</h1>
@@ -135,7 +162,7 @@ const GameBoard = () => {
               <button
               key={x}
               className={`dropButton ${currentPlayer === 1? 'hoverBlack' : 'hoverRed'}`}
-              onClick={e => columnDrop(currentPlayer, x)}
+              onClick={e => pressButton(currentPlayer, x)}
               onMouseOver={e => columnHover(1, x)}
               onMouseLeave={e => changeHover(-1)}
               />
@@ -145,8 +172,10 @@ const GameBoard = () => {
         </div>
         <Grid/>
         <div className="toolbar">
-          <button id="start" className="off" onClick={() => startGame()}>NEW GAME</button>
-          <button id='options' onClick={e => setIsModalOpen(true)}>Options</button>
+          <button id="start" className="off cursor-pointer" onClick={() => startGame()}>NEW GAME</button>
+          <button id='pvp' className={`cursor-pointer ${gameType === 'pvp' ? 'on' : 'off'}`} onClick={e => changeGameType('pvp')}>PvP</button>
+          <button id='pvai' className={`cursor-pointer ${gameType === 'pvai' ? 'on' : 'off'}`} onClick={e => changeGameType('pvai')}>PvAI</button>
+          <button id='pvml' className={`cursor-pointer ${gameType === 'pvml' ? 'on' : 'off'}`} onClick={e => changeGameType('pvml')}>PvML</button>
           {/* <button id="clear">PLAY AI</button>
           <button id="next">PLAY ML</button> */}
 
