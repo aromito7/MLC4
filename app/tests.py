@@ -1,5 +1,5 @@
 import unittest
-import c4main
+import c4 as c4main
 import nn
 
 class TestWinConditions(unittest.TestCase):
@@ -237,7 +237,7 @@ class TestWinConditions(unittest.TestCase):
 		game = c4main.Game(c4main.Player("AI"), c4main.Player("AI"))
 		#game.start()
 
-		self.assertTrue(True)	
+		self.assertTrue(True)
 
 if __name__ == '__main__':
 	unittest.main()
