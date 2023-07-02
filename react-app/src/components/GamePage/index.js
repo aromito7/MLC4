@@ -101,7 +101,8 @@ const GameBoard = () => {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        display
+        display,
+        active
       })
     });
     const data = await response.json()
