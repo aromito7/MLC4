@@ -104,14 +104,20 @@ const GameBoard = () => {
         display
       })
     });
+    const data = await response.json()
+    console.log(data)
   }
 
   const pressButton = function(player, column){
     if(currentPlayer === 1 || gameType === 'pvp'){
       columnDrop(player, column)
-    }
-    else{
-      botDecide(gameType)
+      if(gameType !== 'pvp'){
+        botDecide(gameType)
+      }
+    }else{
+      if(gameType !== 'pvp'){
+        botDecide(gameType)
+      }
     }
   }
 
@@ -129,14 +135,13 @@ const GameBoard = () => {
 
   const columnHover = function(player, column){
     if(isGameOver) return
-    console.log(player, column)
     changeHover(column)
   }
 
   const changeHover = function(column){
-    console.log(`Changing hover from column ${hover} to ${column}`)
+    //console.log(`Changing hover from column ${hover} to ${column}`)
     if(hover >= 0){
-      console.log("Resetting old hover : ", active[hover], hover, column)
+      //console.log("Resetting old hover : ", active[hover], hover, column)
       display[active[hover]][hover] = ' '
     }
     setHover(column)

@@ -12,4 +12,4 @@ def authenticate():
     Authenticates a user.
     """
     print(request.get_json())
-    return
+    return {'message' : 'successful request'}
