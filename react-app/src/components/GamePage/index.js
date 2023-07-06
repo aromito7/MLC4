@@ -8,6 +8,7 @@ import { useState, useEffect } from "react";
 const ROWS = 6;
 const COLS = 7;
 const display = Array(ROWS).fill().map(col => Array(COLS).fill(' '))
+const board = Array(ROWS)
 const colors = {
   'B': 'black',
   'R': 'red',
