@@ -8,7 +8,7 @@ import { useState, useEffect } from "react";
 const ROWS = 6;
 const COLS = 7;
 const display = Array(ROWS).fill().map(col => Array(COLS).fill(' '))
-const board = Array(ROWS)
+const board = Array(ROWS).fill().map(col => Array(COLS).fill(0))
 const colors = {
   'B': 'black',
   'R': 'red',
@@ -17,10 +17,15 @@ const colors = {
   ' ': 'empty'
 }
 
+const updateDisplayBoard = (y, x, color) => {
+  display[y][x] = color
+
+  if(color === 'B' || color === 'R'){
+    board[y][x] = color === 'B' ? 1 : 2
+  }
+}
 
 const Grid = () => {
-  //console.log("Rerendering Grid")
-  //console.log(display)
   return (
     <div id="grid">
       {
@@ -63,6 +68,7 @@ const GameBoard = () => {
     console.log("Resetting Game...")
     for(let y in display){
       display[y] = Array(COLS).fill(' ')
+      board[y] = Array(COLS).fill(0)
     }
     setCurrentPlayer(1)
     setIsModalOpen(false)
@@ -91,7 +97,6 @@ const GameBoard = () => {
     const dropButtons = document.querySelectorAll(".dropButton")
     const endMessage = document.getElementById("endGame")
     endMessage.innerText = player === 2 ? "You Lose!" : "You Win"
-    //endMessage.setAttribute("display", "visible")
     dropButtons.forEach(child => child.style.visibility = "hidden")
   }
 
@@ -103,6 +108,7 @@ const GameBoard = () => {
       },
       body: JSON.stringify({
         display,
+        board,
         active
       })
     });
@@ -124,11 +130,11 @@ const GameBoard = () => {
   }
 
   const columnDrop = function(player, column){
-    console.log(`Column drop.  Player: ${player}, Column: ${column}`)
-    //if(currentPlayer && currentPlayer !== player) return
     const [y, x] = [active[column], column]
-    console.log(`Hello Player ${player}.  You've selected ${x}, ${y}`)
-    display[y][x] = player === 1 ? "B" : "R"
+
+
+    updateDisplayBoard(y, x, player === 1 ? "B" : "R")
+
     setHover(-1)
     setCurrentPlayer(3 - currentPlayer)
 
@@ -141,14 +147,14 @@ const GameBoard = () => {
   }
 
   const changeHover = function(column){
-    //console.log(`Changing hover from column ${hover} to ${column}`)
     if(hover >= 0){
-      //console.log("Resetting old hover : ", active[hover], hover, column)
-      display[active[hover]][hover] = ' '
+      updateDisplayBoard(active[hover], hover, ' ')
+
     }
     setHover(column)
     if(column>=0){
-      display[active[column]][column] = currentPlayer === 1 ? 'G' : 'P'
+
+      updateDisplayBoard(active[column], column, currentPlayer === 1 ? 'G' : 'P')
     }
   }
 
