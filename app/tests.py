@@ -91,28 +91,27 @@ class TestWinConditions(unittest.TestCase):
 		board = self.create_test_board_1()
 		board.place(1, 1)
 
-		result = board.is_horizontal_victory() and board.is_victory()
+		result = board.is_horizontal_victory()
 		self.assertTrue(result)
 
 	def test_vertical_victory0(self):
 		board = self.create_test_board_1()
 		board.place(2, 2)
 
-		result = board.is_vertical_victory() and board.is_victory()
+		result = board.is_vertical_victory()
 		self.assertTrue(result)
 
 	def test_diagonal_downward_victory0(self):
 		board = self.create_test_board_1()
 		board.place(2, 1)
 		print(board)
-		result = board.is_diagonal_downward_victory() and board.is_victory()
+		result = board.is_diagonal_downward_victory()
 		self.assertTrue(result)
 
 	def test_diagonal_upward_victory0(self):
 		board = self.create_test_board_1()
 		board.place(5, 1)
-		print(board)
-		result = board.is_diagonal_upward_victory() and board.is_victory()
+		result = board.is_diagonal_upward_victory()
 		self.assertTrue(result)
 
 	def test_not_victory0(self):

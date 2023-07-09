@@ -120,6 +120,7 @@ class Board:
 		x =  start[1]
 		if y < 1: return [0,0]
 		temp = 1
+
 		while self.rows[y-temp*dy][x-temp*dx] == player:
 			temp+=1
 			count+=1
@@ -152,14 +153,13 @@ class Board:
 		return False
 
 	def is_diagonal_downward_victory(self):
-		count = self.check_maximum_chains(self.previous, -1, 1, self.rows[self.previous[0]][self.previous[1]])[0]
-		print(count)
+		count = self.check_maximum_chains(self.previous, 1, 1, self.rows[self.previous[0]][self.previous[1]])[0]
 		if count > 3:
 			return True
 		return False
 
 	def is_diagonal_upward_victory(self):
-		count = self.check_maximum_chains(self.previous, 1, 1, self.rows[self.previous[0]][self.previous[1]])[0]
+		count = self.check_maximum_chains(self.previous, -1, 1, self.rows[self.previous[0]][self.previous[1]])[0]
 		if count > 3:
 			return True
 		return False
