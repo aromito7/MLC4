@@ -1,7 +1,7 @@
 import numpy as np
 class Board:
 
-	def __init__(self, display=None, available = [7,1,1,1,1,1,1,1,7]):
+	def __init__(self, grid=np.zeros((6, 7)), available = [0,6,6,6,6,6,6,6,0]):
 		self.available = available
 		self.previous = [None, None]
 		self.victory = 0
@@ -15,7 +15,7 @@ class Board:
 		# print(rows)
 		# print(rows[1:7, 1:8])
 		# print(display)
-		rows[1:7, 1:8] = display if display else np.zeros((6, 7))
+		rows[1:7, 1:8] = grid
 
 
 		self.rows = rows
@@ -57,20 +57,21 @@ class Board:
 		#win.getMouse()
 
 	def __str__(self):
+		return repr(self.rows)
 		self.update(self.previous[0])
 
 		# self.win.close()
 		return("Board being displayed")
 
 	def place(self, x, player):
-		if self.available[x] > 6:
+		if self.available[x] < 1:
 			print("Player: {} can't place in column {} due to height.".format(player, x))
 			# self.win.getMouse()
 			x = 1/0
 			return
-		self.previous = [x, self.available[x]]
-		self.rows[x][self.available[x]] = player
-		self.available[x]+=1
+		self.previous = [x, self.available[x - 1]]
+		self.rows[self.available[x - 1]][x] = player
+		self.available[x]-=1
 
 
 		if self.is_victory():
