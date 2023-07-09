@@ -16,14 +16,24 @@ class TestWinConditions(unittest.TestCase):
 			[0, 0, 1, 1, 2, 2, 0],
 			[0, 0, 1, 2, 2, 2, 1]
 			])
-		available = [6, 6, 1, 2, 3, 4, 5]
+		available = [0, 6, 6, 1, 2, 3, 4, 5, 0]
 		board = c4main.Board(grid, available)
 		#board.place(3, 1).place(4,2).place(5,2).place(6,2).place(7,1).place(3,1).place(4,1).place(5,2).place(6,2).place(3,2).place(4,2).place(5,1).place(3,1).place(4,1).place(3,2)
 		return board
 
 	def create_test_board_1(self):
-		board = c4main.Board()
-		board.place(1,1).place(2,1).place(3,1).place(4,2).place(5,2).place(6,2).place(2,1).place(3,1).place(4,1).place(5,2).place(6,2).place(2,2).place(3,2).place(4,1).place(5,1).place(6,1).place(2,2).place(3,2).place(4,1).place(2,2).place(3,1).place(4,2)
+		grid = np.array(
+			[
+			[0, 0, 0, 0, 0, 0, 0],
+			[0, 2, 1, 2, 0, 0, 0],
+			[0, 2, 2, 1, 0, 0, 0],
+			[0, 2, 2, 1, 1, 1, 0],
+			[0, 1, 1, 1, 2, 2, 0],
+			[1, 1, 1, 2, 2, 2, 0]
+			])
+		available = [0, 5, 1, 1, 1, 3, 3, 6, 0]
+		board = c4main.Board(grid, available)
+		#board.place(1,1).place(2,1).place(3,1).place(4,2).place(5,2).place(6,2).place(2,1).place(3,1).place(4,1).place(5,2).place(6,2).place(2,2).place(3,2).place(4,1).place(5,1).place(6,1).place(2,2).place(3,2).place(4,1).place(2,2).place(3,1).place(4,2)
 		return board
 
 	def create_test_board_2(self):
@@ -71,46 +81,45 @@ class TestWinConditions(unittest.TestCase):
 		#board.check_all_chains([3,6],2)
 		self.assertEqual(board.rows[1][3], 2)
 
-	# def test_horizontal_victory0(self):
-	# 	board = self.create_test_board_1()
-	# 	board.place(7, 2)
+	def test_horizontal_victory0(self):
+		board = self.create_test_board_1()
+		board.place(7, 2)
+		#board.is_horizontal_victory() and board.is_victory()
+		self.assertTrue(board.is_horizontal_victory())
 
-	# 	board.is_horizontal_victory() and board.is_victory()
-	# 	self.assertTrue(board.is_horizontal_victory() and board.is_victory())
+	def test_horizontal_victory1(self):
+		board = self.create_test_board_1()
+		board.place(1, 1)
 
-	# def test_horizontal_victory1(self):
-	# 	board = self.create_test_board_1()
-	# 	board.place(1, 1)
+		result = board.is_horizontal_victory() and board.is_victory()
+		self.assertTrue(result)
 
-	# 	result = board.is_horizontal_victory() and board.is_victory()
-	# 	self.assertTrue(result)
+	def test_vertical_victory0(self):
+		board = self.create_test_board_1()
+		board.place(2, 2)
 
-	# def test_vertical_victory0(self):
-	# 	board = self.create_test_board_1()
-	# 	board.place(2, 2)
+		result = board.is_vertical_victory() and board.is_victory()
+		self.assertTrue(result)
 
-	# 	result = board.is_vertical_victory() and board.is_victory()
-	# 	self.assertTrue(result)
+	def test_diagonal_downward_victory0(self):
+		board = self.create_test_board_1()
+		board.place(2, 1)
+		print(board)
+		result = board.is_diagonal_downward_victory() and board.is_victory()
+		self.assertTrue(result)
 
-	# def test_diagonal_downward_victory0(self):
-	# 	board = self.create_test_board_1()
-	# 	board.place(2, 1)
+	def test_diagonal_upward_victory0(self):
+		board = self.create_test_board_1()
+		board.place(5, 1)
+		print(board)
+		result = board.is_diagonal_upward_victory() and board.is_victory()
+		self.assertTrue(result)
 
-	# 	result = board.is_diagonal_downward_victory() and board.is_victory()
-	# 	self.assertTrue(result)
-
-	# def test_diagonal_upward_victory0(self):
-	# 	board = self.create_test_board_1()
-	# 	board.place(5, 1)
-
-	# 	result = board.is_diagonal_upward_victory() and board.is_victory()
-	# 	self.assertTrue(result)
-
-	# def test_not_victory0(self):
-	# 	board = self.create_test_board_1()
-	# 	board.place(4, 2)
-	# 	result = board.is_victory()
-	# 	self.assertFalse(result)
+	def test_not_victory0(self):
+		board = self.create_test_board_1()
+		board.place(4, 2)
+		result = board.is_victory()
+		self.assertFalse(result)
 
 	# def test_all_chains0(self):
 	# 	board = self.create_test_board_2()

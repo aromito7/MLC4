@@ -58,7 +58,7 @@ class Board:
 
 	def __str__(self):
 		return repr(self.rows)
-		self.update(self.previous[0])
+		#self.update(self.previous[0])
 
 		# self.win.close()
 		return("Board being displayed")
@@ -69,8 +69,8 @@ class Board:
 			# self.win.getMouse()
 			x = 1/0
 			return
-		self.previous = [x, self.available[x - 1]]
-		self.rows[self.available[x - 1]][x] = player
+		self.previous = [self.available[x], x]
+		self.rows[self.available[x]][x] = player
 		self.available[x]-=1
 
 
@@ -116,26 +116,24 @@ class Board:
 	def check_maximum_chains(self, start, dx, dy, player):
 		count = 1
 		expand = 0
-		x = start[0]
-		y =  start[1]
-
-		if y > 6: return [0,0]
-
+		y = start[0]
+		x =  start[1]
+		if y < 1: return [0,0]
 		temp = 1
-		while self.rows[x-temp*dx][y-temp*dy] == player:
+		while self.rows[y-temp*dy][x-temp*dx] == player:
 			temp+=1
 			count+=1
 
-		while self.rows[x-temp*dx][y-temp*dy] == 0:
+		while self.rows[y-temp*dy][x-temp*dx] == 0:
 			temp+=1
 			expand+=1
 
 		temp = 1
-		while self.rows[x+temp*dx][y+temp*dy] == player:
+		while self.rows[y+temp*dy][x+temp*dx] == player:
 			count+=1
 			temp+=1
 
-		while self.rows[x+temp*dx][y+temp*dy] == 0:
+		while self.rows[y+temp*dy][x+temp*dx] == 0:
 			temp+=1
 			expand+=1
 
@@ -155,6 +153,7 @@ class Board:
 
 	def is_diagonal_downward_victory(self):
 		count = self.check_maximum_chains(self.previous, -1, 1, self.rows[self.previous[0]][self.previous[1]])[0]
+		print(count)
 		if count > 3:
 			return True
 		return False
