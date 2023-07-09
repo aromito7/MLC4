@@ -13,9 +13,10 @@ def authenticate():
     """
     Authenticates a user.
     """
-    a = np.arange(6)
-    a2 = a[np.newaxis, :]
-    board = Board()
-    print(request.get_json())
+    json = request.get_json()
+
+    board = Board(json['board'], json['active'])
+
+    print(board.rows)
     return {'message' : 'successful request',
-            'numpy': a2.shape}
+            'numpy': repr(board.rows)}

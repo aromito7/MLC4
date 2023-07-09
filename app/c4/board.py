@@ -1,6 +1,6 @@
 import numpy as np
 class Board:
-	
+
 	def __init__(self, display=None, available = [7,1,1,1,1,1,1,1,7]):
 		self.available = available
 		self.previous = [None, None]
@@ -9,25 +9,17 @@ class Board:
 		self.width = self.tile*7
 		self.height = self.tile*6
 
-		rows = [[0 for y in range(8)] for x in range(9)]
-		for x in range(9):
-			for y in range(8):
-				if x%8 == 0 or y%7 == 0:
-					rows[x][y] = -1
 
-		if display:
-			for x in range(9):
-				for y in range(8):
-					val = display[y - 1][x - 1]
-					if val == 'B':
-						rows[x][y] = 1
-					elif val == 'R':
-						rows[x][y] = 2
-					else:
-						rows[x][y] = 0
+
+		rows = np.full((8, 9), -1)
+		# print(rows)
+		# print(rows[1:7, 1:8])
+		# print(display)
+		rows[1:7, 1:8] = display if display else np.zeros((6, 7))
 
 
 		self.rows = rows
+
 
 	def start(self):
 		win = GraphWin('Connect 4', 350, 300)

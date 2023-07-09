@@ -39,9 +39,6 @@ const Grid = () => {
     </div>
   )
 }
-const DropButtons = () => {
-
-}
 
 const Square = ({val}) => {
   const color = colors[val];
@@ -58,11 +55,7 @@ const GameBoard = () => {
   const [isGameOver, setIsGameOver] = useState(false)
   const [isModalOpen, setIsModalOpen] = useState(false)
   const [gameType, setGameType] = useState("pvp")
-  const opponent = []
 
-  function toggleModal(){
-
-  }
 
   function resetGame(){
     console.log("Resetting Game...")
@@ -92,13 +85,6 @@ const GameBoard = () => {
     return chain >= 3? 1 : 0
   }
 
-  function endGame(player){
-    isGameOver = true
-    const dropButtons = document.querySelectorAll(".dropButton")
-    const endMessage = document.getElementById("endGame")
-    endMessage.innerText = player === 2 ? "You Lose!" : "You Win"
-    dropButtons.forEach(child => child.style.visibility = "hidden")
-  }
 
   const botDecide = async(type) => {
     const response = await fetch(`/api/bot/ai/decide`, {
