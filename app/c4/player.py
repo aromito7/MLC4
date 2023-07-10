@@ -20,7 +20,7 @@ class Player:
 	def check_for_immediate_win(self, board, player_number):  #This only returns the first column which can immediately win the game
 		max_chains = [-1,0,0,0,0,0,0,0,-1]
 		for a in range(1,8):
-			max_chains[a] = board.check_all_chains_with_expansion([a, board.available[a]], player_number)
+			max_chains[a] = board.check_all_chains_with_expansion([board.available[a], a], player_number)
 
 		for a in range(1,8):			#First priority is winning immediately
 			if max_chains[a] > 3: return a
@@ -29,7 +29,7 @@ class Player:
 	def check_if_opponent_has_win(self, board, player_number):
 		opp_chains = [-1,0,0,0,0,0,0,0,-1]
 		for a in range(1,8):
-			opp_chains[a] = board.check_all_chains_with_expansion([a, board.available[a]], 3-player_number)
+			opp_chains[a] = board.check_all_chains_with_expansion([board.available[a], a], 3-player_number)
 
 		for a in range(1,8):				#Second priority is preventing opponent from winning
 			if opp_chains[a] > 3: return a

@@ -53,24 +53,51 @@ class TestWinConditions(unittest.TestCase):
 
 	def create_test_game_0(self):
 		player = c4main.Player("AI")
-		game = c4main.Game(player, None)
-		board = game.board
-		board.place(2,1).place(3,1).place(4,1).place(5,2).place(5,2).place(5,2)
-		return game
+		grid = np.array(
+			[
+			[0, 0, 0, 0, 0, 0, 0],
+			[0, 0, 0, 0, 0, 0, 0],
+			[0, 0, 0, 0, 0, 0, 0],
+			[0, 0, 0, 0, 2, 0, 0],
+			[0, 0, 0, 0, 2, 0, 0],
+			[0, 1, 1, 1, 2, 0, 0]
+			])
+		available = [0, 6, 5, 5, 5, 3, 6, 6, 0]
+		board = c4main.Board(grid, available)
+		#board.place(2,1).place(3,1).place(4,1).place(5,2).place(5,2).place(5,2)
+		return board, player
 
 	def create_test_game_1(self):
 		player = c4main.Player("AI")
-		game = c4main.Game(player, None)
-		board = game.board
-		board.place(2,1).place(3,1).place(5,2).place(5,2)
-		return game
+		grid = np.array(
+			[
+			[0, 0, 0, 0, 0, 0, 0],
+			[0, 0, 0, 0, 0, 0, 0],
+			[0, 0, 0, 0, 0, 0, 0],
+			[0, 0, 0, 0, 0, 0, 0],
+			[0, 0, 0, 0, 2, 0, 0],
+			[0, 1, 1, 0, 2, 0, 0]
+			])
+		available = [0, 6, 5, 5, 6, 4, 6, 6, 0]
+		board = c4main.Board(grid, available)
+		#board.place(2,1).place(3,1).place(5,2).place(5,2)
+		return board, player
 
 	def create_test_game_2(self):
 		player = c4main.Player("AI")
-		game = c4main.Game(player, None)
-		board = game.board
-		board.place(2,1).place(2,2).place(3,1).place(3,2).place(4,1).place(4,2).place(5,2).place(5,1).place(6,2).place(6,2).place(6,1).place(7,2).place(7,2)
-		return game
+		grid = np.array(
+			[
+			[0, 0, 0, 0, 0, 0, 0],
+			[0, 0, 0, 0, 0, 0, 0],
+			[0, 0, 0, 0, 0, 0, 0],
+			[0, 0, 0, 0, 0, 1, 0],
+			[0, 2, 2, 2, 1, 2, 2],
+			[0, 1, 1, 1, 2, 2, 2]
+			])
+		available = [0, 6, 4, 4, 4, 4, 3, 4, 0]
+		board = c4main.Board(grid, available)
+		#board.place(2,1).place(2,2).place(3,1).place(3,2).place(4,1).place(4,2).place(5,2).place(5,1).place(6,2).place(6,2).place(6,1).place(7,2).place(7,2)
+		return board, player
 
 
 	def test_place0(self):
@@ -154,40 +181,35 @@ class TestWinConditions(unittest.TestCase):
 		result = board.check_all_chains([4, 6], 2)
 		self.assertEqual(result, 3)
 
-	# def test_ai_check_win_0(self):
-	# 	game = self.create_test_game_2()
-	# 	board = game.board
+	def test_ai_check_win_0(self):
+		board, player = self.create_test_game_2()
 
-	# 	move = game.players[0].check_for_immediate_win(board, 1)
-	# 	self.assertEqual(move, 1)
+		move = player.check_for_immediate_win(board, 1)
+		self.assertEqual(move, 1)
 
-	# def test_ai_check_win_1(self):
-	# 	game = self.create_test_game_2()
-	# 	board = game.board
+	def test_ai_check_win_1(self):
+		board, player = self.create_test_game_2()
 
-	# 	move = game.players[0].check_for_immediate_win(board, 2)
-	# 	self.assertEqual(move, -1)
+		move = player.check_for_immediate_win(board, 2)
+		self.assertEqual(move, -1)
 
-	# def test_ai_check_opp_win_0(self):
-	# 	game = self.create_test_game_2()
-	# 	board = game.board
+	def test_ai_check_opp_win_0(self):
+		board, player = self.create_test_game_2()
 
-	# 	move = game.players[0].check_if_opponent_has_win(board, 1)
-	# 	self.assertEqual(move, -1)
+		move = player.check_if_opponent_has_win(board, 1)
+		self.assertEqual(move, -1)
 
-	# def test_ai_check_opp_win_1(self):
-	# 	game = self.create_test_game_2()
-	# 	board = game.board
+	def test_ai_check_opp_win_1(self):
+		board, player = self.create_test_game_2()
 
-	# 	move = game.players[0].check_if_opponent_has_win(board, 2)
-	# 	self.assertEqual(move, 1)
+		move = player.check_if_opponent_has_win(board, 2)
+		self.assertEqual(move, 1)
 
-	# def test_ai_check_which_move_gives_opp_win_0(self):
-	# 	game = self.create_test_game_2()
-	# 	board = game.board
-	# 	board.place(5,2)
-	# 	move = game.players[0].check_which_move_gives_opponent_win(board, 1)
-	# 	self.assertEqual(move, [1,4])
+	def test_ai_check_which_move_gives_opp_win_0(self):
+		board, player = self.create_test_game_2()
+		board.place(5,2)
+		move = player.check_which_move_gives_opponent_win(board, 1)
+		self.assertEqual(move, [1,4])
 
 	# def test_ai_check_which_move_gives_opp_win_1(self):
 	# 	game = self.create_test_game_2()
