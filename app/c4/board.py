@@ -90,8 +90,8 @@ class Board:
 	def check_all_chains_with_expansion(self, start, player):
 		hori = self.check_maximum_chains(start, 1, 0, player)
 		vert = self.check_maximum_chains(start, 0, 1, player)
-		diup = self.check_maximum_chains(start, 1, 1, player)
-		dido = self.check_maximum_chains(start, 1,-1, player)
+		diup = self.check_maximum_chains(start, 1, -1, player)
+		dido = self.check_maximum_chains(start, 1, 1, player)
 
 		chains = [hori, vert, diup, dido]
 
@@ -106,11 +106,10 @@ class Board:
 	def check_all_chains(self, start, player):
 		hori = self.check_maximum_chains(start, 1, 0, player)
 		vert = self.check_maximum_chains(start, 0, 1, player)
-		diup = self.check_maximum_chains(start, 1, 1, player)
-		dido = self.check_maximum_chains(start, 1,-1, player)
+		diup = self.check_maximum_chains(start, 1, -1, player)
+		dido = self.check_maximum_chains(start, 1, 1, player)
 
 		max_chain = max(hori[0], vert[0], diup[0], dido[0])
-
 		return max_chain
 
 	def check_maximum_chains(self, start, dx, dy, player):

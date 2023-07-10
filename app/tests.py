@@ -37,8 +37,18 @@ class TestWinConditions(unittest.TestCase):
 		return board
 
 	def create_test_board_2(self):
-		board = c4main.Board()
-		board.place(1,1).place(2,1).place(3,1).place(4,2).place(5,2).place(6,2).place(2,1).place(3,1).place(4,2).place(5,2).place(2,2).place(3,2).place(4,1).place(5,1).place(6,1).place(2,2).place(3,2).place(2,2).place(3,1)
+		grid = np.array(
+			[
+			[0, 0, 0, 0, 0, 0, 0],
+			[0, 2, 1, 0, 0, 0, 0],
+			[0, 2, 2, 0, 0, 0, 0],
+			[0, 2, 2, 1, 1, 0, 0],
+			[0, 1, 1, 2, 2, 1, 0],
+			[1, 1, 1, 2, 2, 2, 0]
+			])
+		available = [0, 5, 1, 1, 3, 3, 4, 6, 0]
+		board = c4main.Board(grid, available)
+		#board.place(1,1).place(2,1).place(3,1).place(4,2).place(5,2).place(6,2).place(2,1).place(3,1).place(4,2).place(5,2).place(2,2).place(3,2).place(4,1).place(5,1).place(6,1).place(2,2).place(3,2).place(2,2).place(3,1)
 		return board
 
 	def create_test_game_0(self):
@@ -104,7 +114,6 @@ class TestWinConditions(unittest.TestCase):
 	def test_diagonal_downward_victory0(self):
 		board = self.create_test_board_1()
 		board.place(2, 1)
-		print(board)
 		result = board.is_diagonal_downward_victory()
 		self.assertTrue(result)
 
@@ -120,30 +129,30 @@ class TestWinConditions(unittest.TestCase):
 		result = board.is_victory()
 		self.assertFalse(result)
 
-	# def test_all_chains0(self):
-	# 	board = self.create_test_board_2()
-	# 	result = board.check_all_chains([1,2], 1)
-	# 	self.assertEqual(result, 3)
+	def test_all_chains0(self):
+		board = self.create_test_board_2()
+		result = board.check_all_chains([1,2], 1)
+		self.assertEqual(result, 2)
 
-	# def test_all_chains1(self):
-	# 	board = self.create_test_board_2()
-	# 	result = board.check_all_chains([2, 6], 2)
-	# 	self.assertEqual(result, 4)
+	def test_all_chains1(self):
+		board = self.create_test_board_2()
+		result = board.check_all_chains([3, 4], 2)
+		self.assertEqual(result, 3)
 
-	# def test_all_chains2(self):
-	# 	board = self.create_test_board_2()
-	# 	result = board.check_all_chains([7, 1], 2)
-	# 	self.assertEqual(result, 4)
+	def test_all_chains2(self):
+		board = self.create_test_board_2()
+		result = board.check_all_chains([6, 7], 1)
+		self.assertEqual(result, 3)
 
-	# def test_all_chains3(self):
-	# 	board = self.create_test_board_2()
-	# 	result = board.check_all_chains([5, 4], 1)
-	# 	self.assertEqual(result, 4)
+	def test_all_chains3(self):
+		board = self.create_test_board_2()
+		result = board.check_all_chains([4, 6], 1)
+		self.assertEqual(result, 3)
 
-	# def test_all_chains4(self):
-	# 	board = self.create_test_board_2()
-	# 	result = board.check_all_chains([4, 4], 1)
-	# 	self.assertEqual(result, 4)
+	def test_all_chains4(self):
+		board = self.create_test_board_2()
+		result = board.check_all_chains([4, 6], 2)
+		self.assertEqual(result, 3)
 
 	# def test_ai_check_win_0(self):
 	# 	game = self.create_test_game_2()
