@@ -40,7 +40,7 @@ class Player:
 		opp_next = [-1,0,0,0,0,0,0,0,-1]
 		for a in range(1,8):
 			if board.available[a] < 7:
-				opp_next[a] = board.check_all_chains_with_expansion([a, board.available[a] + 1], 3-player_number)
+				opp_next[a] = board.check_all_chains_with_expansion([board.available[a] - 1, a], 3-player_number)
 				if opp_next[a] > 3:
 					moves.append(a)
 
@@ -70,7 +70,7 @@ class Player:
 		greatest_moves = []
 		for move in moves:
 			x = move[0]
-			move[1] = board.check_all_chains_with_expansion([x, board.available[x]], player_number)
+			move[1] = board.check_all_chains_with_expansion([board.available[x], x], player_number)
 			if move[1] > greatest:
 				greatest = move[1]
 				greatest_moves = [x]

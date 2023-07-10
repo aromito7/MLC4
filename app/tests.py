@@ -211,40 +211,39 @@ class TestWinConditions(unittest.TestCase):
 		move = player.check_which_move_gives_opponent_win(board, 1)
 		self.assertEqual(move, [1,4])
 
-	# def test_ai_check_which_move_gives_opp_win_1(self):
-	# 	game = self.create_test_game_2()
-	# 	board = game.board
+	def test_ai_check_which_move_gives_opp_win_1(self):
+		board, player = self.create_test_game_2()
 
-	# 	move = game.players[0].check_which_move_gives_opponent_win(board, 2)
-	# 	self.assertEqual(move, [7])
+		move = player.check_which_move_gives_opponent_win(board, 2)
+		self.assertEqual(move, [7])
 
 
-	# def test_ai_choice_0(self):
-	# 	game = self.create_test_game_0()
-	# 	board = game.board
-	# 	move = game.players[0].decide(board, 1)
-	# 	self.assertEqual(move, 1) #player.decide(board, 1) == 1)
+	def test_ai_choice_0(self):
+		board, player = self.create_test_game_0()
 
-	# def test_ai_choice_1(self):
-	# 	game = self.create_test_game_0()
-	# 	board = game.board
-	# 	move = game.players[0].decide(board, 2)
-	# 	self.assertEqual(move, 5) #player.decide(board, 1) == 1)
+		move = player.decide(board, 1)
+		self.assertEqual(move, 1) #player.decide(board, 1) == 1)
 
-	# def test_ai_choice_2(self):
-	# 	game = self.create_test_game_1()
-	# 	board = game.board
-	# 	move = game.players[0].decide(board, 2)
-	# 	self.assertEqual(move, 5) #player.decide(board, 1) == 1)
+	def test_ai_choice_1(self):
+		board, player = self.create_test_game_0()
 
-	# def test_ai_choice_3(self):
-	# 	game = self.create_test_game_1()
-	# 	board = game.board
-	# 	move = game.players[0].decide(board, 2)
-	# 	self.assertEqual(move, 5) #player.decide(board, 1) == 1)
+		move = player.decide(board, 2)
+		self.assertEqual(move, 5) #player.decide(board, 1) == 1)
+
+	def test_ai_choice_2(self):
+		board, player = self.create_test_game_1()
+
+		move = player.decide(board, 2)
+		self.assertEqual(move, 5) #player.decide(board, 1) == 1)
+
+	def test_ai_choice_3(self):
+		board, player = self.create_test_game_1()
+
+		move = player.decide(board, 2)
+		self.assertEqual(move, 5) #player.decide(board, 1) == 1)
 
 	# def test_ai_choice_4(self):
-	# 	player = c4main.Player("AI")
+	# 	board, player = c4main.Player("AI")
 	# 	game = c4main.Game(player, None)
 	# 	board = game.board
 	# 	board.place(2,1).place(3,1).place(5,2).place(4,2).place(2,2).place(3,2)
@@ -252,17 +251,17 @@ class TestWinConditions(unittest.TestCase):
 	# 	self.assertEqual(move, 4) #player.decide(board, 1) == 1)
 
 	# def test_ai_choice_5(self):
-	# 	game = c4main.Game(c4main.Player("AI"), None)
-	# 	board = game.board
-	# 	move = game.players[0].decide(board,1)
+	# 	board, player = c4main.Game(c4main.Player("AI"), None)
+
+	# 	move = player.decide(board,1)
 	# 	self.assertTrue(move > 0 and move < 8)
 
 	# def test_ai_choice_6(self):  #This tests the AI's ability to not move somewhere that gives the opponent the win
-	# 	game = c4main.Game(c4main.Player("AI"), c4main.Player("AI"))
-	# 	board = game.board
+	# 	board, player = c4main.Game(c4main.Player("AI"), c4main.Player("AI"))
+
 	# 	board.place(1,2).place(2,1).place(3,1).place(1,1).place(2,1).place(3,2).place(3,2).place(2,2).place(1,1).place(1,1).place(1,2).place(2,2).place(6,2).place(6,2).place(7,1)
 
-	# 	move = game.players[0].decide(board, 1)
+	# 	move = player.decide(board, 1)
 	# 	self.assertEqual(move, 7)
 
 	# def test_ai_choice_7(self):  #This tests that the AI will give their opponent the win only if they have no other moves
