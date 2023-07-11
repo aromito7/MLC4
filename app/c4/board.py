@@ -2,6 +2,8 @@ import numpy as np
 class Board:
 
 	def __init__(self, grid=np.zeros((6, 7)), available = [0,6,6,6,6,6,6,6,0]):
+		if len(available) == 7:
+			available = [0] + available + [0]
 		self.available = available
 		self.previous = [None, None]
 		self.victory = 0
@@ -16,6 +18,7 @@ class Board:
 		# print(rows[1:7, 1:8])
 		# print(display)
 		rows[1:7, 1:8] = grid
+
 
 
 		self.rows = rows

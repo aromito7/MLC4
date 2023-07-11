@@ -54,7 +54,7 @@ const GameBoard = () => {
   const [hover, setHover] = useState(-1)
   const [isGameOver, setIsGameOver] = useState(false)
   const [isModalOpen, setIsModalOpen] = useState(false)
-  const [gameType, setGameType] = useState("pvp")
+  const [gameType, setGameType] = useState("pvai")
 
 
   function resetGame(){
@@ -93,36 +93,36 @@ const GameBoard = () => {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        display,
         board,
         active
       })
     });
     const data = await response.json()
     console.log(data)
+    return data.move - 1
   }
 
-  const pressButton = function(player, column){
+  const pressButton = async function(player, column){
     if(currentPlayer === 1 || gameType === 'pvp'){
       columnDrop(player, column)
       if(gameType !== 'pvp'){
-        botDecide(gameType)
-      }
-    }else{
-      if(gameType !== 'pvp'){
-        botDecide(gameType)
+        const column = await botDecide(gameType)
+        columnDrop(3 - player, column)
       }
     }
   }
 
   const columnDrop = function(player, column){
+    if(active[column] < 0){
+      console.log(`Error: Cannot drop a piece in column ${column} as it's active position is ${active[column]}`)
+    }
     const [y, x] = [active[column], column]
 
 
     updateDisplayBoard(y, x, player === 1 ? "B" : "R")
 
     setHover(-1)
-    setCurrentPlayer(3 - currentPlayer)
+    setCurrentPlayer(3 - player)
 
     return[column, active[column]--]
   }
@@ -157,15 +157,18 @@ const GameBoard = () => {
         <div id="dropButtons">
         {
           Array(COLS).fill().map((i, x) => {
-            return(
-              <button
+
+            return (active[x] >= 0)
+              ? <button
               key={x}
               className={`dropButton ${currentPlayer === 1? 'hoverBlack' : 'hoverRed'}`}
               onClick={e => pressButton(currentPlayer, x)}
               onMouseOver={e => columnHover(1, x)}
               onMouseLeave={e => changeHover(-1)}
               />
-            )
+              :
+              <div className='disabledButton'>
+              </div>
           })
         }
         </div>
