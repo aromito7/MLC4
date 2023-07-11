@@ -99,6 +99,21 @@ class TestWinConditions(unittest.TestCase):
 		#board.place(2,1).place(2,2).place(3,1).place(3,2).place(4,1).place(4,2).place(5,2).place(5,1).place(6,2).place(6,2).place(6,1).place(7,2).place(7,2)
 		return board, player
 
+	def create_test_game_3(self):
+		player = c4main.Player("AI")
+		grid = np.array(
+			[
+			[0, 0, 0, 0, 0, 0, 0],
+			[0, 0, 0, 0, 0, 0, 0],
+			[0, 0, 0, 0, 0, 0, 0],
+			[0, 0, 0, 0, 0, 0, 1],
+			[0, 0, 0, 0, 0, 0, 1],
+			[1, 0, 0, 1, 2, 2, 2]
+			])
+		available = [0, 5, 6, 6, 5, 5, 5, 3, 0]
+		board = c4main.Board(grid, available)
+		return board, player
+
 
 	def test_place0(self):
 		board = self.create_test_board_0()
@@ -241,6 +256,13 @@ class TestWinConditions(unittest.TestCase):
 
 		move = player.decide(board, 2)
 		self.assertEqual(move, 5) #player.decide(board, 1) == 1)
+
+	def test_ai_choice_4(self):
+		board, player = self.create_test_game_3()
+
+		move = player.decide(board, 2)
+		print(move)
+		self.assertTrue(3 < move < 7)
 
 	# def test_ai_choice_4(self):
 	# 	board, player = c4main.Player("AI")

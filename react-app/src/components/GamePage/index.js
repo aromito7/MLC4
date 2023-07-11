@@ -167,8 +167,7 @@ const GameBoard = () => {
               onMouseLeave={e => changeHover(-1)}
               />
               :
-              <div className='disabledButton'>
-              </div>
+              <div className='disabledButton'/>
           })
         }
         </div>
