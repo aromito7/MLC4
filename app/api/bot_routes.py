@@ -19,6 +19,5 @@ def authenticate():
     board = Board(json['board'], json['active'])
     player = Player()
     move = player.decide(board, 2)
-    print(board.rows)
     return {'message' : 'successful request',
             'move': move}

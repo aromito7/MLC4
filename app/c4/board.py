@@ -97,7 +97,7 @@ class Board:
 		dido = self.check_maximum_chains(start, 1, 1, player)
 
 		chains = [hori, vert, diup, dido]
-
+		
 		for chain in chains:
 			if chain[0] + chain[1] < 4:
 				chain[0] = 0
