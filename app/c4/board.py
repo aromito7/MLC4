@@ -97,7 +97,7 @@ class Board:
 		dido = self.check_maximum_chains(start, 1, 1, player)
 
 		chains = [hori, vert, diup, dido]
-		
+
 		for chain in chains:
 			if chain[0] + chain[1] < 4:
 				chain[0] = 0
@@ -106,11 +106,23 @@ class Board:
 
 		return max_chain
 
+	def check_horizontal_chains(self, start, player):
+		return self.check_maximum_chains(start, 1, 0, player)
+
+	def check_vertical_chains(self, start, player):
+		return self.check_maximum_chains(start, 0, 1, player)
+
+	def check_diagonal_up_chains(self, start, player):
+		return self.check_maximum_chains(start, 1, -1, player)
+
+	def check_diagonal_down_chains(self, start, player):
+		return self.check_maximum_chains(start, 1, 1, player)
+
 	def check_all_chains(self, start, player):
-		hori = self.check_maximum_chains(start, 1, 0, player)
-		vert = self.check_maximum_chains(start, 0, 1, player)
-		diup = self.check_maximum_chains(start, 1, -1, player)
-		dido = self.check_maximum_chains(start, 1, 1, player)
+		hori = self.check_horizontal_chains(start, player)
+		vert = self.check_vertical_chains(start, player)
+		diup = self.check_diagonal_up_chains(start, player)
+		dido = self.check_diagonal_down_chains(start, player)
 
 		max_chain = max(hori[0], vert[0], diup[0], dido[0])
 		return max_chain

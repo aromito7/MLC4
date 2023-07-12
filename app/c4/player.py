@@ -22,7 +22,6 @@ class Player:
 		for a in range(1,8):
 			max_chains[a] = board.check_all_chains_with_expansion([board.available[a], a], player_number)
 
-		print(max_chains)
 		for a in range(1,8):			#First priority is winning immediately
 			if max_chains[a] > 3: return a
 		return -1
@@ -48,14 +47,14 @@ class Player:
 		return moves
 
 	def ai_decide(self, board, player_number):
-		print("Player {}".format(player_number))
-		print(board.rows)
+		# print("Player {}".format(player_number))
+		# print(board.rows)
 		move = self.check_for_immediate_win(board, player_number)
-		print(move)
+
 		if move > 0: return move
 
 		move = self.check_if_opponent_has_win(board, player_number)
-		print(move)
+
 		if move > 0: return move
 
 		bad_moves = self.check_which_move_gives_opponent_win(board, player_number)

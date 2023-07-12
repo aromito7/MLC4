@@ -90,7 +90,7 @@ class TestWinConditions(unittest.TestCase):
 			[0, 0, 0, 0, 0, 0, 0],
 			[0, 0, 0, 0, 0, 0, 0],
 			[0, 1, 1, 0, 1, 1, 0],
-			[1, 2, 2, 1, 2, 2, 1],
+			[1, 1, 1, 1, 1, 1, 1],
 			[2, 2, 2, 2, 2, 2, 2],
 			[2, 2, 2, 2, 2, 2, 2]
 			])
@@ -324,6 +324,83 @@ class TestWinConditions(unittest.TestCase):
 		print(move)
 		self.assertTrue(3 < move < 7)
 
+	def test_chains_1(self):
+		board, player = self.create_test_chain_1()
+		player = 2
+
+		self.assertEqual(1, board.check_horizontal_chains([3, 1], 2)[0])
+		self.assertEqual(1, board.check_horizontal_chains([3, 4], 2)[0])
+		self.assertEqual(1, board.check_horizontal_chains([3, 7], 2)[0])
+
+		self.assertEqual(1, board.check_vertical_chains([3, 1], 2)[0])
+		self.assertEqual(1, board.check_vertical_chains([3, 4], 2)[0])
+		self.assertEqual(1, board.check_vertical_chains([3, 7], 2)[0])
+
+		self.assertEqual(1, board.check_diagonal_up_chains([3, 1], 2)[0])
+		self.assertEqual(1, board.check_diagonal_up_chains([3, 4], 2)[0])
+		self.assertEqual(1, board.check_diagonal_up_chains([3, 7], 2)[0])
+
+		self.assertEqual(1, board.check_diagonal_down_chains([3, 1], 2)[0])
+		self.assertEqual(1, board.check_diagonal_down_chains([3, 4], 2)[0])
+		self.assertEqual(1, board.check_diagonal_down_chains([3, 7], 2)[0])
+
+	def test_chains_2(self):
+		board, player = self.create_test_chain_2()
+		player = 2
+
+		self.assertEqual(2, board.check_horizontal_chains([3, 1], 2)[0])
+		self.assertEqual(2, board.check_horizontal_chains([3, 3], 2)[0])
+		self.assertEqual(2, board.check_horizontal_chains([3, 5], 2)[0])
+		self.assertEqual(2, board.check_horizontal_chains([3, 7], 2)[0])
+
+		self.assertEqual(2, board.check_vertical_chains([3, 1], 2)[0])
+		self.assertEqual(2, board.check_vertical_chains([3, 3], 2)[0])
+		self.assertEqual(2, board.check_vertical_chains([3, 5], 2)[0])
+		self.assertEqual(2, board.check_vertical_chains([3, 7], 2)[0])
+
+		self.assertEqual(2, board.check_diagonal_up_chains([3, 3], 2)[0])
+		self.assertEqual(2, board.check_diagonal_up_chains([3, 4], 2)[0])
+		self.assertEqual(2, board.check_diagonal_up_chains([3, 5], 2)[0])
+		self.assertEqual(2, board.check_diagonal_up_chains([3, 7], 2)[0])
+
+		self.assertEqual(2, board.check_diagonal_down_chains([3, 1], 2)[0])
+		self.assertEqual(2, board.check_diagonal_down_chains([3, 3], 2)[0])
+		self.assertEqual(2, board.check_diagonal_down_chains([3, 4], 2)[0])
+		self.assertEqual(2, board.check_diagonal_down_chains([3, 5], 2)[0])
+
+	def test_chains_3(self):
+		board, player = self.create_test_chain_3()
+		player = 2
+
+		self.assertEqual(3, board.check_horizontal_chains([3, 1], 2)[0])
+		self.assertEqual(3, board.check_horizontal_chains([3, 4], 2)[0])
+
+
+		self.assertEqual(3, board.check_vertical_chains([3, 1], 2)[0])
+		self.assertEqual(3, board.check_vertical_chains([3, 4], 2)[0])
+
+
+		self.assertEqual(3, board.check_diagonal_up_chains([3, 4], 2)[0])
+		self.assertEqual(3, board.check_diagonal_up_chains([3, 7], 2)[0])
+
+		self.assertEqual(3, board.check_diagonal_down_chains([3, 1], 2)[0])
+		self.assertEqual(3, board.check_diagonal_down_chains([3, 4], 2)[0])
+
+	def test_chains_4(self):
+		board, player = self.create_test_chain_4()
+		player = 2
+
+		self.assertEqual(4, board.check_horizontal_chains([3, 3], 2)[0])
+		self.assertEqual(4, board.check_horizontal_chains([3, 7], 2)[0])
+
+
+		self.assertEqual(4, board.check_vertical_chains([3, 3], 2)[0])
+		self.assertEqual(4, board.check_vertical_chains([3, 7], 2)[0])
+
+		self.assertEqual(4, board.check_diagonal_up_chains([3, 7], 2)[0])
+
+		self.assertEqual(4, board.check_diagonal_down_chains([3, 1], 2)[0])
+		self.assertEqual(4, board.check_diagonal_down_chains([3, 3], 2)[0])
 
 	# def test_ai_choice_4(self):
 	# 	board, player = c4main.Player("AI")
