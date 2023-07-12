@@ -9,6 +9,9 @@ class Player:
 		self.player_type = player_type
 
 	def decide(self, board, player_number):
+		'''This this determines how a player decides to move
+		based on what type of player they are.'''
+
 		if self.player_type == "AI":
 			return self.ai_decide(board, player_number)
 		if self.player_type == "PL":
@@ -17,25 +20,28 @@ class Player:
 			#print(x,y, board.tile, x // board.tile)
 			return int(x // board.tile) + 1
 
-	def check_for_immediate_win(self, board, player_number):  #This only returns the first column which can immediately win the game
+		return 0
+
+
+	def check_for_immediate_win(self, board, player_number):
+		'''Checks to see if a player has a move that can immediately win
+		them the game.  If there are multiple it returns the first column
+		number for a winning move.  Otherwise it returns -1.'''
+
 		max_chains = [-1,0,0,0,0,0,0,0,-1]
 		for a in range(1,8):
 			max_chains[a] = board.check_all_chains_with_expansion([board.available[a], a], player_number)
 
-		for a in range(1,8):			#First priority is winning immediately
+		for a in range(1,8):
 			if max_chains[a] > 3: return a
 		return -1
 
-	def check_if_opponent_has_win(self, board, player_number):
-		opp_chains = [-1,0,0,0,0,0,0,0,-1]
-		for a in range(1,8):
-			opp_chains[a] = board.check_all_chains_with_expansion([board.available[a], a], 3-player_number)
-
-		for a in range(1,8):				#Second priority is preventing opponent from winning
-			if opp_chains[a] > 3: return a
-		return -1
 
 	def check_which_move_gives_opponent_win(self, board, player_number):
+		'''Checks to see which moves will give your opponent an opportuny
+		to win by placing their piece on top of yours and returns an array
+		of column numbers.'''
+
 		moves = []
 		opp_next = [-1,0,0,0,0,0,0,0,-1]
 		for a in range(1,8):
@@ -47,13 +53,16 @@ class Player:
 		return moves
 
 	def ai_decide(self, board, player_number):
-		# print("Player {}".format(player_number))
-		# print(board.rows)
+		'''This allows the basic AI to decide where to move based on a priority
+		system.  Immediately win -> prevent opponent win -> exclude moves that give
+		a win next turn -> pick a move that maximizes chain length and randomly
+		select a move if there's a tie.'''
+
 		move = self.check_for_immediate_win(board, player_number)
 
 		if move > 0: return move
 
-		move = self.check_if_opponent_has_win(board, player_number)
+		move = self.check_for_immediate_win(board, 3-player_number)
 
 		if move > 0: return move
 
