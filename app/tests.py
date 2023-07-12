@@ -271,13 +271,13 @@ class TestWinConditions(unittest.TestCase):
 	def test_ai_check_opp_win_0(self):
 		board, player = self.create_test_game_2()
 
-		move = player.check_if_opponent_has_win(board, 1)
+		move = player.check_for_immediate_win(board, 2)
 		self.assertEqual(move, -1)
 
 	def test_ai_check_opp_win_1(self):
 		board, player = self.create_test_game_2()
 
-		move = player.check_if_opponent_has_win(board, 2)
+		move = player.check_for_immediate_win(board, 1)
 		self.assertEqual(move, 1)
 
 	def test_ai_check_which_move_gives_opp_win_0(self):
