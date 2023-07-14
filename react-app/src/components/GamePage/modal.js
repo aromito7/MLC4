@@ -1,6 +1,4 @@
-import { useState } from "react"
-
-const Modal = ({isModalOpen, setIsModalOpen, gameType, setGameType}) => {
+const Modal = ({isModalOpen, setIsModalOpen}) => {
     return(
         <div className={`dropdown-modal ${isModalOpen ? "active" : "inactive"}`}>
             <div id='dropdown-modal-container'>

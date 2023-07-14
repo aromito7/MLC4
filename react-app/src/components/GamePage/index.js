@@ -1,8 +1,6 @@
-//const Player = require("./player");
-import Player from './player.js'
 import Modal from './modal.js'
 import './style.css'
-import { useState, useEffect } from "react";
+import { useState } from "react";
 
 
 const ROWS = 6;
@@ -75,14 +73,6 @@ const GameBoard = () => {
     start.innerHTML = "NEW GAME";
     setIsGameOver(false)
     resetGame()
-  }
-
-
-
-
-  function checkForWin([x, y], board, player){
-    const chain = Player.longestChainAtLocation([x, y], board, player)
-    return chain >= 3? 1 : 0
   }
 
 
