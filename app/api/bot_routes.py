@@ -1,6 +1,5 @@
 from flask import Blueprint, jsonify, session, request
-from app.models import User, db
-from flask_login import current_user, login_user, logout_user, login_required
+from app.models import db
 from app.c4 import Board
 from app.c4 import Player
 import numpy as np

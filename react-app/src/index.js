@@ -1,9 +1,7 @@
 import React from 'react';
 import { createRoot } from 'react-dom/client';
-import { Provider } from "react-redux";
 import { BrowserRouter } from 'react-router-dom';
 import { ModalProvider, Modal } from './context/Modal';
-import store from './store';
 import App from './App';
 import './css';
 
@@ -14,14 +12,12 @@ const root = createRoot(domNode)
 root.render(
 	<React.StrictMode>
 		<ModalProvider>
-			<Provider store={store}>
-				<BrowserRouter>
-				
-					<App />
-					<Modal />
-					
-				</BrowserRouter>
-			</Provider>
+			<BrowserRouter>
+
+				<App />
+				<Modal />
+
+			</BrowserRouter>
 		</ModalProvider>
 	</React.StrictMode>
 );
