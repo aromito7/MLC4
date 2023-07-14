@@ -174,6 +174,21 @@ class TestWinConditions(unittest.TestCase):
 		board = c4main.Board(grid, available)
 		return board, player
 
+	def create_test_game_immediate_win_vs_prevent_win(self):
+		player = c4main.Player("AI")
+		grid = np.array(
+			[
+			[0, 0, 0, 0, 0, 0, 0],
+			[0, 0, 0, 0, 0, 0, 0],
+			[0, 0, 0, 0, 0, 0, 0],
+			[1, 0, 0, 0, 0, 0, 0],
+			[1, 0, 0, 0, 0, 0, 0],
+			[1, 0, 0, 2, 0, 2, 2]
+			])
+		available = [0, 3, 6, 6, 6, 5, 5, 5, 0]
+		board = c4main.Board(grid, available)
+		return board, player
+
 
 	def test_place0(self):
 		board = self.create_test_board_0()
