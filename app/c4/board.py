@@ -60,7 +60,7 @@ class Board:
 		#win.getMouse()
 
 	def __str__(self):
-		return repr(self.rows)
+		return repr(self.rows[1:7, 1:8])
 		#self.update(self.previous[0])
 
 		# self.win.close()
