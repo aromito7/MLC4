@@ -31,8 +31,8 @@ class Player:
 		max_chains = [-1,0,0,0,0,0,0,0,-1]
 		for a in range(1,8):
 			max_chains[a] = board.check_all_chains_with_expansion([board.available[a], a], player_number)
-		print("Player {} chains".format(player_number))
-		print(max_chains)
+		# print("Player {} chains".format(player_number))
+		# print(max_chains)
 		for a in range(1,8):
 			if max_chains[a] > 3: return a
 		return -1
@@ -59,8 +59,8 @@ class Player:
 		a win next turn -> pick a move that maximizes chain length and randomly
 		select a move if there's a tie.'''
 
-		print(board)
-		print(board.available)
+		# print(board)
+		# print(board.available)
 		move = self.check_for_immediate_win(board, player_number)
 
 		if move > 0: return move

@@ -2,6 +2,10 @@ import numpy as np
 class Board:
 
 	def __init__(self, grid=np.zeros((6, 7)), available = [0,6,6,6,6,6,6,6,0]):
+		'''Create a game board object which defaults to an empty board.
+		The avialable list keeps track of the lowest available space for each
+		column which a piece would fall to when placed.'''
+
 		if len(available) == 7:
 			available = [0] + available + [0]
 		self.available = available
@@ -53,9 +57,9 @@ class Board:
 		y = self.available[move]-1
 		colors = ['white', 'red', 'black']
 		t = self.tile
-		circle = Circle(Point(-t//2 + x*t, (6.5 * t) - y*t), .4*t)
-		circle.setFill(colors[rows[x][y]])
-		circle.draw(win)
+		# circle = Circle(Point(-t//2 + x*t, (6.5 * t) - y*t), .4*t)
+		# circle.setFill(colors[rows[x][y]])
+		# circle.draw(win)
 
 		#win.getMouse()
 
