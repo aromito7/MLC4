@@ -14,9 +14,12 @@ def authenticate():
     Authenticates a user.
     """
     json = request.get_json()
+    active = np.full((9), -1)
+    active[1:8] = np.array(json['active']) + np.full((7), 1)
 
-    board = Board(json['board'], json['active'])
+
+    board = Board(json['board'], active)
     player = Player()
     move = player.decide(board, 2)
-    return {'message' : 'successful request',
+    return {'message' : 'successful request ',
             'move': move}
