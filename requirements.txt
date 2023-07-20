@@ -30,3 +30,4 @@ wtforms==3.0.1
 boto3==1.26.96
 faker==18.3.1
 numpy==1.25.0
+tensowflow=v2.13.0
