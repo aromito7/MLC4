@@ -1,5 +1,5 @@
 import unittest
-import c4 as c4main
+from c4 import Player, Board
 import nn
 import numpy as np
 
@@ -17,7 +17,7 @@ class TestWinConditions(unittest.TestCase):
 			[0, 0, 1, 2, 2, 2, 1]
 			])
 		available = [0, 6, 6, 1, 2, 3, 4, 5, 0]
-		board = c4main.Board(grid, available)
+		board = Board(grid, available)
 		#board.place(3, 1).place(4,2).place(5,2).place(6,2).place(7,1).place(3,1).place(4,1).place(5,2).place(6,2).place(3,2).place(4,2).place(5,1).place(3,1).place(4,1).place(3,2)
 		return board
 
@@ -32,7 +32,7 @@ class TestWinConditions(unittest.TestCase):
 			[1, 1, 1, 2, 2, 2, 0]
 			])
 		available = [0, 5, 1, 1, 1, 3, 3, 6, 0]
-		board = c4main.Board(grid, available)
+		board = Board(grid, available)
 		#board.place(1,1).place(2,1).place(3,1).place(4,2).place(5,2).place(6,2).place(2,1).place(3,1).place(4,1).place(5,2).place(6,2).place(2,2).place(3,2).place(4,1).place(5,1).place(6,1).place(2,2).place(3,2).place(4,1).place(2,2).place(3,1).place(4,2)
 		return board
 
@@ -47,12 +47,12 @@ class TestWinConditions(unittest.TestCase):
 			[1, 1, 1, 2, 2, 2, 0]
 			])
 		available = [0, 5, 1, 1, 3, 3, 4, 6, 0]
-		board = c4main.Board(grid, available)
+		board = Board(grid, available)
 		#board.place(1,1).place(2,1).place(3,1).place(4,2).place(5,2).place(6,2).place(2,1).place(3,1).place(4,2).place(5,2).place(2,2).place(3,2).place(4,1).place(5,1).place(6,1).place(2,2).place(3,2).place(2,2).place(3,1)
 		return board
 
 	def create_test_game_0(self):
-		player = c4main.Player("AI")
+		player = Player("AI")
 		grid = np.array(
 			[
 			[0, 0, 0, 0, 0, 0, 0],
@@ -63,12 +63,12 @@ class TestWinConditions(unittest.TestCase):
 			[0, 1, 1, 1, 2, 0, 0]
 			])
 		available = [0, 6, 5, 5, 5, 3, 6, 6, 0]
-		board = c4main.Board(grid, available)
+		board = Board(grid, available)
 		#board.place(2,1).place(3,1).place(4,1).place(5,2).place(5,2).place(5,2)
 		return board, player
 
 	def create_test_game_1(self):
-		player = c4main.Player("AI")
+		player = Player("AI")
 		grid = np.array(
 			[
 			[0, 0, 0, 0, 0, 0, 0],
@@ -79,12 +79,12 @@ class TestWinConditions(unittest.TestCase):
 			[0, 1, 1, 0, 2, 0, 0]
 			])
 		available = [0, 6, 5, 5, 6, 4, 6, 6, 0]
-		board = c4main.Board(grid, available)
+		board = Board(grid, available)
 		#board.place(2,1).place(3,1).place(5,2).place(5,2)
 		return board, player
 
 	def create_test_chain_1(self):
-		player = c4main.Player("AI")
+		player = Player("AI")
 		grid = np.array(
 			[
 			[0, 0, 0, 0, 0, 0, 0],
@@ -95,11 +95,11 @@ class TestWinConditions(unittest.TestCase):
 			[2, 2, 2, 2, 2, 2, 2]
 			])
 		available = [0, 3, 2, 2, 3, 2, 2, 3, 0]
-		board = c4main.Board(grid, available)
+		board = Board(grid, available)
 		return board, player
 
 	def create_test_chain_2(self):
-		player = c4main.Player("AI")
+		player = Player("AI")
 		grid = np.array(
 			[
 			[0, 0, 0, 0, 0, 0, 0],
@@ -110,11 +110,11 @@ class TestWinConditions(unittest.TestCase):
 			[1, 1, 1, 1, 1, 1, 1]
 			])
 		available = [0, 3, 2, 3, 3, 3, 2, 3, 0]
-		board = c4main.Board(grid, available)
+		board = Board(grid, available)
 		return board, player
 
 	def create_test_chain_3(self):
-		player = c4main.Player("AI")
+		player = Player("AI")
 		grid = np.array(
 			[
 			[0, 0, 0, 0, 0, 0, 0],
@@ -125,11 +125,11 @@ class TestWinConditions(unittest.TestCase):
 			[1, 1, 1, 1, 1, 1, 1]
 			])
 		available = [0, 3, 2, 2, 3, 3, 3, 3, 0]
-		board = c4main.Board(grid, available)
+		board = Board(grid, available)
 		return board, player
 
 	def create_test_chain_4(self):
-		player = c4main.Player("AI")
+		player = Player("AI")
 		grid = np.array(
 			[
 			[0, 0, 0, 0, 0, 0, 0],
@@ -140,11 +140,11 @@ class TestWinConditions(unittest.TestCase):
 			[2, 2, 2, 2, 2, 2, 2]
 			])
 		available = [0, 3, 3, 3, 2, 2, 2, 3, 0]
-		board = c4main.Board(grid, available)
+		board = Board(grid, available)
 		return board, player
 
 	def create_test_game_2(self):
-		player = c4main.Player("AI")
+		player = Player("AI")
 		grid = np.array(
 			[
 			[0, 0, 0, 0, 0, 0, 0],
@@ -155,12 +155,12 @@ class TestWinConditions(unittest.TestCase):
 			[0, 1, 1, 1, 2, 2, 2]
 			])
 		available = [0, 6, 4, 4, 4, 4, 3, 4, 0]
-		board = c4main.Board(grid, available)
+		board = Board(grid, available)
 		#board.place(2,1).place(2,2).place(3,1).place(3,2).place(4,1).place(4,2).place(5,2).place(5,1).place(6,2).place(6,2).place(6,1).place(7,2).place(7,2)
 		return board, player
 
 	def create_test_game_3(self):
-		player = c4main.Player("AI")
+		player = Player("AI")
 		grid = np.array(
 			[
 			[0, 0, 0, 0, 0, 0, 0],
@@ -171,11 +171,11 @@ class TestWinConditions(unittest.TestCase):
 			[1, 0, 0, 1, 2, 2, 2]
 			])
 		available = [0, 5, 6, 6, 5, 5, 5, 3, 0]
-		board = c4main.Board(grid, available)
+		board = Board(grid, available)
 		return board, player
 
 	def create_test_game_immediate_win_vs_prevent_win(self):
-		player = c4main.Player("AI")
+		player = Player("AI")
 		grid = np.array(
 			[
 			[0, 0, 0, 0, 0, 0, 0],
@@ -186,9 +186,40 @@ class TestWinConditions(unittest.TestCase):
 			[1, 0, 0, 2, 0, 2, 2]
 			])
 		available = [0, 3, 6, 6, 6, 5, 5, 5, 0]
-		board = c4main.Board(grid, available)
+		board = Board(grid, available)
 		return board, player
 
+	def create_forced_loss(self):
+		player = Player("AI")
+		grid = np.array([
+			[2, 2, 2, 0, 2, 2, 2],
+			[2, 2, 1, 0, 1, 2, 2],
+			[1, 1, 1, 2, 1, 1, 1],
+			[2, 2, 2, 1, 2, 2, 2],
+			[1, 1, 2, 2, 2, 1, 1],
+			[2, 1, 1, 2, 1, 1, 2]])
+
+		available = [0, 0, 0, 0, 1, 0, 0, 0, 0]
+		board = Board(grid, available)
+		return board, player
+
+	def create_error_board(self):
+		player = Player("AI")
+		grid = np.array([
+			[1, 1, 1, 2, 0, 0, 0],
+			[1, 1, 1, 2, 1, 2, 0],
+			[2, 2, 1, 1, 2, 2, 0],
+			[2, 1, 2, 2, 2, 1, 0],
+			[2, 1, 1, 2, 2, 2, 0],
+			[1, 1, 1, 2, 1, 2, 0]])
+
+		available = [0, 0, 0, 0, 0, 1, 1, 6, 0]
+		board = Board(grid, available)
+
+		return board, player
+
+	def create_placement_error_board(self):
+		player = Player("AI")
 
 	def test_place0(self):
 		board = self.create_test_board_0()
@@ -403,7 +434,6 @@ class TestWinConditions(unittest.TestCase):
 
 	def test_chains_4(self):
 		board, player = self.create_test_chain_4()
-		player = 2
 
 		self.assertEqual(4, board.check_horizontal_chains([3, 3], 2)[0])
 		self.assertEqual(4, board.check_horizontal_chains([3, 7], 2)[0])
@@ -417,22 +447,33 @@ class TestWinConditions(unittest.TestCase):
 		self.assertEqual(4, board.check_diagonal_down_chains([3, 1], 2)[0])
 		self.assertEqual(4, board.check_diagonal_down_chains([3, 3], 2)[0])
 
+
+	def test_forced_loss(self):
+		board, player = self.create_forced_loss()
+
+		self.assertEqual(4, player.decide(board, 1))
+
+	def test_error_board(self):
+		board, player = self.create_error_board()
+		move = player.decide(board, 1)
+		print(f"Error board move: {move}")
+		self.assertTrue(move > 4)
 	# def test_ai_choice_4(self):
-	# 	board, player = c4main.Player("AI")
-	# 	game = c4main.Game(player, None)
+	# 	board, player = Player("AI")
+	# 	game = Game(player, None)
 	# 	board = game.board
 	# 	board.place(2,1).place(3,1).place(5,2).place(4,2).place(2,2).place(3,2)
 	# 	move = game.players[0].decide(board, 1)
 	# 	self.assertEqual(move, 4) #player.decide(board, 1) == 1)
 
 	# def test_ai_choice_5(self):
-	# 	board, player = c4main.Game(c4main.Player("AI"), None)
+	# 	board, player = Game(Player("AI"), None)
 
 	# 	move = player.decide(board,1)
 	# 	self.assertTrue(move > 0 and move < 8)
 
 	# def test_ai_choice_6(self):  #This tests the AI's ability to not move somewhere that gives the opponent the win
-	# 	board, player = c4main.Game(c4main.Player("AI"), c4main.Player("AI"))
+	# 	board, player = Game(Player("AI"), Player("AI"))
 
 	# 	board.place(1,2).place(2,1).place(3,1).place(1,1).place(2,1).place(3,2).place(3,2).place(2,2).place(1,1).place(1,1).place(1,2).place(2,2).place(6,2).place(6,2).place(7,1)
 
@@ -440,14 +481,14 @@ class TestWinConditions(unittest.TestCase):
 	# 	self.assertEqual(move, 7)
 
 	# def test_ai_choice_7(self):  #This tests that the AI will give their opponent the win only if they have no other moves
-	# 	game = c4main.Game(c4main.Player("AI"), c4main.Player("AI"))
+	# 	game = Game(Player("AI"), Player("AI"))
 	# 	board = game.board
 	# 	board.place(1,2).place(2,1).place(3,1).place(1,1).place(2,1).place(3,2).place(3,2).place(2,2).place(1,1).place(1,1).place(1,2).place(2,2).place(6,2).place(6,2).place(7,1).place(1,2).place(2,1).place(2,2).place(3,1).place(3,1).place(3,1).place(5,2).place(5,1).place(5,1).place(5,2).place(5,2).place(5,1).place(6,1).place(6,1).place(6,2).place(6,2).place(7,1).place(7,2).place(7,2).place(7,2).place(7,1)
 	# 	move = game.players[0].decide(board, 1)
 	# 	self.assertEqual(move, 4)
 
 	# def test_ai_choise_8(self):  #Tests whether a move will be made when there atleast two moves that all lose the game.
-	# 	game = c4main.Game(c4main.Player("AI"), c4main.Player("AI"))
+	# 	game = Game(Player("AI"), Player("AI"))
 	# 	board = game.board
 	# 	board.place(1,2).place(1,2).place(1,1).place(1,1).place(1,2).place(1,2)
 	# 	board.place(3,1).place(3,2).place(3,1).place(3,2).place(3,2).place(3,1)
@@ -458,7 +499,7 @@ class TestWinConditions(unittest.TestCase):
 	# 	self.assertTrue(move in [2, 6])
 
 	# def test_ai_play_game_0(self):
-	# 	game = c4main.Game(c4main.Player("AI"), c4main.Player("AI"))
+	# 	game = Game(Player("AI"), Player("AI"))
 	# 	#game.start()
 
 	# 	self.assertTrue(True)

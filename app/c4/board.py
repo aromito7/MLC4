@@ -27,23 +27,30 @@ class Board:
 
 		self.rows = rows
 
+	def reset(self):
+		rows = np.full((8, 9), -1)
+		rows[1:7, 1:8] = np.zeros((6, 7))
+		self.previous = [None, None]
+		self.victory = 0
+		self.rows = rows
+		self.available = [0,6,6,6,6,6,6,6,0]
 
 	def start(self):
-		win = GraphWin('Connect 4', 350, 300)
+		#win = GraphWin('Connect 4', 350, 300)
 		# self.win = win
 		rows = self.rows
 
-		background = Rectangle(Point(0, 0), Point(350, 300))
-		background.setFill('yellow')
-		background.draw(win)
+		# background = Rectangle(Point(0, 0), Point(350, 300))
+		# background.setFill('yellow')
+		# background.draw(win)
 		colors = ['white', 'red', 'black']
 		for x in range(1, 8):
 			for y in range(1, 7):
 				t = self.tile
-				circle = Circle(Point(-t//2 + x*t, (6.5 * t) - y*t), .4*t)
-				circle.setFill(colors[rows[x][y]])
-				circle.draw(win)
-		win.getMouse()
+				# circle = Circle(Point(-t//2 + x*t, (6.5 * t) - y*t), .4*t)
+				# circle.setFill(colors[rows[x][y]])
+				# circle.draw(win)
+		# win.getMouse()
 
 	def update(self, move):
 		if not hasattr(self, 'win'):
@@ -74,6 +81,8 @@ class Board:
 		if self.available[x] < 1:
 			print("Player: {} can't place in column {} due to height.".format(player, x))
 			# self.win.getMouse()
+			print(self.available)
+			print(self)
 			x = 1/0
 			return
 		self.previous = [self.available[x], x]

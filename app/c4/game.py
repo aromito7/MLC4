@@ -6,6 +6,9 @@ class Game:
 	def __init__(self, p0, p1):
 		self.players = [p0, p1]
 		self.board = Board()
+
+	def restart(self):
+		self.board.reset()
 		self.game_over = False
 		self.current_player = 1
 		self.turns = 0
@@ -68,13 +71,15 @@ class Game:
 
 
 	def start(self):
+		self.restart()
 		while self.board.victory == 0:
-			move = self.players[self.current_player-1].decide(self.board, self.current_player)
+			move = self.players[self.current_player - 1].decide(self.board, self.current_player)
 			self.board.place(move, self.current_player)
 			self.board.update(move)
 			self.current_player = 3 - self.current_player
 			self.turns += 1
 			#print(self.turns)
-		print("Player: " + str(self.board.victory) + " wins!")
-		self.board.win.getMouse()
-		self.board.win.close()
+		print(f"Player: {str(self.board.victory)} wins!")
+		print(self.board)
+		# self.board.win.getMouse()
+		# self.board.win.close()
