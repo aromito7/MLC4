@@ -63,22 +63,34 @@ class Player:
 		# print(board.available)
 		move = self.check_for_immediate_win(board, player_number)
 
+		board.messages.append(f"Immediate win: {move}")
+
 		if move > 0: return move
 
 		move = self.check_for_immediate_win(board, 3-player_number)
 
+		board.messages.append(f"Opponents immediate win: {move}")
+
 		if move > 0: return move
 
 		bad_moves = self.check_which_move_gives_opponent_win(board, player_number)
-		max_height = [i for i in range(1,8) if board.available[i] > 6]
-		moves = [i for i in range(1,8) if i not in max_height]
-		if len(moves) == 1:
-			return moves[0]
 
-		safe_moves = [[i, 0] for i in moves if i not in bad_moves]
+		board.messages.append(f"Moves that give opponent the win: {bad_moves}")
+
+		valid_heights = [i for i in range(1,8) if 0 < board.available[i] <= 6]
+		#moves = [i for i in range(1,8) if i in valid_heights]
+
+		board.messages.append(f"Filter for height: {valid_heights}")
+
+		if len(valid_heights) == 1:
+			return valid_heights[0]
+
+		safe_moves = [[i, 0] for i in valid_heights if i not in bad_moves]
+
+		board.messages.append(f"Safe moves: {safe_moves}")
 
 		if len(safe_moves) == 0:
-			return random.choice(moves)
+			return random.choice(valid_heights)
 
 		moves = safe_moves
 
@@ -92,6 +104,8 @@ class Player:
 				greatest_moves = [x]
 			if move[1] == greatest:
 				greatest_moves.append(x)
+
+		board.messages.append(f"Moves that maximize chains: {greatest_moves}")
 
 		return random.choice(greatest_moves)
 

@@ -14,6 +14,7 @@ class Board:
 		self.tile = 50
 		self.width = self.tile*7
 		self.height = self.tile*6
+		self.messages = []
 
 
 
@@ -83,6 +84,8 @@ class Board:
 			# self.win.getMouse()
 			print(self.available)
 			print(self)
+			for message in self.messages:
+				print(message)
 			x = 1/0
 			return
 		self.previous = [self.available[x], x]

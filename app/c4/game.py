@@ -12,6 +12,7 @@ class Game:
 		self.game_over = False
 		self.current_player = 1
 		self.turns = 0
+		self.messages = []
 
 	# def menu(self):
 	# 	width, height = self.board.width, self.board.height
@@ -67,19 +68,33 @@ class Game:
 	# 			win.close()
 
 
+	def play_games(self, games, verbose = False):
+		for _ in range(games):
+			self.start(verbose)
+
+	def generate_training_data(self):
+		pass
 
 
-
-	def start(self):
+	def start(self, verbose = False):
 		self.restart()
-		while self.board.victory == 0:
+		while self.board.victory == 0 and sum(self.board.available) > 0:
 			move = self.players[self.current_player - 1].decide(self.board, self.current_player)
 			self.board.place(move, self.current_player)
 			self.board.update(move)
 			self.current_player = 3 - self.current_player
 			self.turns += 1
+			self.board.messages = []
 			#print(self.turns)
-		print(f"Player: {str(self.board.victory)} wins!")
+
+		if not verbose:
+			return
+
+		if self.board.victory:
+			print(f"Player: {str(self.board.victory)} wins!")
+		else:
+			print("Game is a draw :-/")
 		print(self.board)
+
 		# self.board.win.getMouse()
 		# self.board.win.close()

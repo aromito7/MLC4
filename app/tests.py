@@ -456,7 +456,6 @@ class TestWinConditions(unittest.TestCase):
 	def test_error_board(self):
 		board, player = self.create_error_board()
 		move = player.decide(board, 1)
-		print(f"Error board move: {move}")
 		self.assertTrue(move > 4)
 	# def test_ai_choice_4(self):
 	# 	board, player = Player("AI")
