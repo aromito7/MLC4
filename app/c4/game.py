@@ -14,6 +14,9 @@ class Game:
 		self.turns = 0
 		self.messages = []
 
+	def __repr__(self):
+		return str(self.board)
+
 	# def menu(self):
 	# 	width, height = self.board.width, self.board.height
 	# 	win = GraphWin('C4 Menu', width, height)
@@ -72,8 +75,23 @@ class Game:
 		for _ in range(games):
 			self.start(verbose)
 
-	def generate_training_data(self):
-		pass
+	def generate_training_data(self, games, verbose = False):
+		game_boards = []
+		results = []
+
+		for _ in range(games):
+			self.start()
+			game_boards.append(self.board.rows[1:-1, 1:-1])
+			results.append(self.board.victory)
+
+		if verbose:
+			for game, result in zip(game_boards, results):
+				print(result)
+				print(game)
+
+
+		return game_boards, results
+
 
 
 	def start(self, verbose = False):
