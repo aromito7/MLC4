@@ -78,6 +78,9 @@ class Board:
 		# self.win.close()
 		return("Board being displayed")
 
+	def flatten_game_board_state(self):
+		return np.append(self.rows[1:-1, 1:-1].flatten(), [self.victory % 2])
+
 	def place(self, x, player):
 		if self.available[x] < 1:
 			print("Player: {} can't place in column {} due to height.".format(player, x))

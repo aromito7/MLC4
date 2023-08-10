@@ -77,20 +77,20 @@ class Game:
 
 	def generate_training_data(self, games, verbose = False):
 		game_boards = []
-		results = []
+		# results = []
 
 		for _ in range(games):
 			self.start()
-			game_boards.append(self.board.rows[1:-1, 1:-1])
-			results.append(self.board.victory)
+			game_boards.append(self.board.flatten_game_board_state())
+			# results.append(self.board.victory)
 
-		if verbose:
-			for game, result in zip(game_boards, results):
-				print(result)
-				print(game)
+		# if verbose:
+		# 	for game, result in zip(game_boards, results):
+		# 		print(result)
+		# 		print(game)
 
 
-		return game_boards, results
+		return game_boards #, results
 
 
 
