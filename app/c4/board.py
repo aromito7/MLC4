@@ -79,7 +79,7 @@ class Board:
 		return("Board being displayed")
 
 	def flatten_game_board_state(self):
-		return np.append(self.rows[1:-1, 1:-1].flatten(), [self.victory % 2])
+		return np.append(self.rows[1:-1, 1:-1].flatten(), [self.victory if self.victory < 2 else -1])
 
 	def place(self, x, player):
 		if self.available[x] < 1:

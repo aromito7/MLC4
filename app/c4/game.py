@@ -1,5 +1,6 @@
 from .player import Player
 from .board import Board
+import json
 
 class Game:
 	players = [None, None]
@@ -89,8 +90,12 @@ class Game:
 		# 		print(result)
 		# 		print(game)
 
-
 		return game_boards #, results
+
+	def store_training_data(self, game_boards):
+		with open('game_data.csv', 'w') as f:
+			for result in game_boards:
+				f.write(json.dumps(result.tolist()) + "\n")
 
 
 
