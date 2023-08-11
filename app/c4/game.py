@@ -92,12 +92,6 @@ class Game:
 
 		return game_boards #, results
 
-	def store_training_data(self, game_boards):
-		with open('game_data.csv', 'w') as f:
-			for result in game_boards:
-				f.write(json.dumps(result.tolist()) + "\n")
-
-
 
 	def start(self, verbose = False):
 		self.restart()

@@ -1,7 +1,8 @@
 import unittest
-from c4 import Player, Board
+from c4 import Player, Board, Game
 import nn
 import numpy as np
+from random import randint
 
 class TestWinConditions(unittest.TestCase):
 	#rows = [[0 for col in range(7)] for row in range(6)]
@@ -173,6 +174,14 @@ class TestWinConditions(unittest.TestCase):
 		available = [0, 5, 6, 6, 5, 5, 5, 3, 0]
 		board = Board(grid, available)
 		return board, player
+
+	def create_test_game_4(self):
+		p1 = Player("AI")
+		p2 = Player("AI")
+
+		return Game(p1, p2)
+
+
 
 	def create_test_game_immediate_win_vs_prevent_win(self):
 		player = Player("AI")
@@ -367,7 +376,6 @@ class TestWinConditions(unittest.TestCase):
 		board, player = self.create_test_game_3()
 
 		move = player.decide(board, 2)
-		print(move)
 		self.assertTrue(3 < move < 7)
 
 	def test_chains_1(self):
@@ -457,6 +465,16 @@ class TestWinConditions(unittest.TestCase):
 		board, player = self.create_error_board()
 		move = player.decide(board, 1)
 		self.assertTrue(move > 4)
+
+	def test_generate_training_data(self):
+		game = self.create_test_game_4()
+
+		num = randint(1, 20)
+
+		game_results = np.array(game.generate_training_data(num))
+
+		self.assertEqual((num, 43), game_results.shape)
+
 	# def test_ai_choice_4(self):
 	# 	board, player = Player("AI")
 	# 	game = Game(player, None)
