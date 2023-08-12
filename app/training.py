@@ -8,7 +8,19 @@ from tensorflow.keras.layers import Dense, Flatten
 from tensorflow.keras.optimizers import Adam
 
 
-def generate_training_data(self, games, verbose = False):
+def flatten_game_board_state(board):
+    flat = np.append(board.rows[1:-1, 1:-1].flatten(), board.victory)
+
+    output = np.array([f if f < 2 else -1 for f in flat])
+
+    return output
+
+def expand_board_state(flattened_state):
+    '''This expands a 1x43 saved game state into a board.'''
+
+    board, victory = np.array(flattened_state[:-1]), flattened_state[-1]
+
+def generate_training_data(games, verbose = False):
     '''This function plays a set number of games, and returns
     the results in a format suitable for tensorflow.  Each space on the
     6x7 board contains an element in [-1, 0, 1] where 1 is the current users,
@@ -18,9 +30,12 @@ def generate_training_data(self, games, verbose = False):
     game_boards = []
     # results = []
 
+    p1, p2 = Player(), Player()
+    game = Game(p1, p2)
+
     for _ in range(games):
-        self.start()
-        game_boards.append(self.board.flatten_game_board_state())
+        game.start()
+        game_boards.append(flatten_game_board_state(game.board))
         # results.append(self.board.victory)
 
     # if verbose:
@@ -32,6 +47,8 @@ def generate_training_data(self, games, verbose = False):
 
     return game_boards #, results
 
+
+
 def store_training_data(game_boards):
     with open('game_data.csv', 'a') as f:
         for result in game_boards:
@@ -42,7 +59,7 @@ def train():
     p2 = Player("AI")
     game = Game(p1, p2)
 
-    game_results = game.generate_training_data(5)
+    game_results = generate_training_data(1000)
 
     store_training_data(game_results)
 
