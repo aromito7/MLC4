@@ -63,13 +63,16 @@ def train():
 
     store_training_data(game_results)
 
-    def build_model(states, actions):
-        model = Sequential()
-        model.add(Flatten(input_shape=(1, 42)))
-        model.add(Dense(24, activation='relu'))
-        model.add(Dense(24, activation='relu'))
-        model.add(Dense(1, activation='linear'))
-        return model
+    build_model(game_results)
+
+def build_model(game_results):
+    '''This creates our tensorflow model'''
+    model = Sequential()
+    model.add(Flatten(input_shape=(1, 42)))
+    model.add(Dense(24, activation='relu'))
+    model.add(Dense(24, activation='relu'))
+    model.add(Dense(1, activation='linear'))
+    return model
 
     x_train, y_train = [], []
 
@@ -77,10 +80,15 @@ def train():
         x_train.append(result[:-1])
         y_train.append(result[-1])
 
-    model = build_model(x_train, y_train)
-    prediction = model.predict([[[1, 1, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 2, 2, 0, 1, 1, 0, 0, 2, 1, 2, 2, 2, 0, 0, 2, 1, 1, 2, 2, 2, 0, 1, 1, 1, 2, 2, 2, 1]]])
+    # model.compile(optimizer='adam',
+    #           loss=loss_fn,
+    #           metrics=['accuracy'])
+    model.fit(x_train, y_train, epochs=5)
 
-    return prediction
+    return model
+
+def predict(x_test, y_test):
+    pass
 
 if __name__ == '__main__':
     print(train())

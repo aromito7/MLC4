@@ -1,5 +1,6 @@
 import unittest
 from c4 import Player, Board, Game
+import training
 import nn
 import numpy as np
 from random import randint
@@ -471,7 +472,7 @@ class TestWinConditions(unittest.TestCase):
 
 		num = randint(1, 20)
 
-		game_results = np.array(game.generate_training_data(num))
+		game_results = np.array(training.generate_training_data(num))
 
 		self.assertEqual((num, 43), game_results.shape)
 
