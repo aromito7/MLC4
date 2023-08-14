@@ -33,10 +33,13 @@ def generate_training_data(games, verbose = False):
     p1, p2 = Player(), Player()
     game = Game(p1, p2)
 
-    for _ in range(games):
+    for i in range(1, games + 1):
         game.start()
         game_boards.append(flatten_game_board_state(game.board))
         # results.append(self.board.victory)
+
+        if verbose and i % 1000 == 0:
+            print(f'{(i * 100)//(100 * games)}% done; finished game: {i}')
 
     # if verbose:
     # 	for game, result in zip(game_boards, results):
